@@ -76,7 +76,7 @@ public class AppTest {
   @Test
   public void IsValidID() {
     RegisterManager manager = new RegisterManager();
-    boolean res = manager.isValidID("100235482", DocType.citizenshipCard);
+    boolean res = manager.existID("100235482", DocType.citizenshipCard);
     assertTrue(res);
   }
 }
