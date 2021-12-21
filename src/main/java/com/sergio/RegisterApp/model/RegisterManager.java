@@ -1,5 +1,8 @@
 package com.sergio.RegisterApp.model;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Locale;
 import java.util.List;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -121,7 +124,7 @@ public class RegisterManager {
    *          actualizarlo.
    */
   public void updateClient(Customer costumer, String firstNames, String lastNames, DocType docType, String docNumber,
-      String birthDate)/*
+      LocalDate birthDate)/*
                         * throws CostumerNotFoundException,
                         * ListCostumersNotFoundException
                         */ {
@@ -129,7 +132,7 @@ public class RegisterManager {
     costumer.setLastNames(lastNames);
     costumer.setDocNumber(docNumber);
     costumer.setDocType(docType);
-    costumer.setBirthDate();
+    costumer.setBirthDate(birthDate);
   }
 
   /**
@@ -142,6 +145,7 @@ public class RegisterManager {
    * @apiNote
    *          Este metodo solo se usa para filtrar la lista de clientes con
    *          palabras clave, para tener como resultado una lista mas
+   *          peque�a que solo posea los resultados que contienen plabras clave
    *          (como el inicio de un nombre o apellido, o el inicio
    *          de un numero de documento; respecto a dicho cliente).
    */
@@ -152,9 +156,9 @@ public class RegisterManager {
   public List<Customer> filterCustomerByKeyword(String keyword) {
     return listCustomers.parallelStream()
         .filter(
-            customer -> customer.getFirstNames().contains(keyword)
-                || customer.getLastNames().contains(keyword)
-                || customer.getDocNumber().contains(keyword))
+            customer -> customer.getFirstNames().toLowerCase(Locale.ROOT).contains(keyword.toLowerCase(Locale.ROOT))
+                || customer.getLastNames().toLowerCase(Locale.ROOT).contains(keyword.toLowerCase(Locale.ROOT))
+                || customer.getDocNumber().toLowerCase(Locale.ROOT).contains(keyword.toLowerCase(Locale.ROOT)))
         .collect(Collectors.toList());
   }
 }
