@@ -1,5 +1,6 @@
 package com.sergio.RegisterApp.controller;
 
+import com.sergio.RegisterApp.exceptions.CustomerIDAlreadyExistException;
 import com.sergio.RegisterApp.model.Customer;
 import com.sergio.RegisterApp.model.DocType;
 import com.sergio.RegisterApp.model.RegisterManager;
@@ -17,7 +18,7 @@ public class ControlManager implements KeyListener, MouseListener {
   private RegisterManager registerManager;
   private PrincipalWindow principalWindow;
 
-  public ControlManager() throws IOException {
+  public ControlManager() throws IOException, CustomerIDAlreadyExistException {
     this.principalWindow = new PrincipalWindow(this);
     this.registerManager = new RegisterManager();
     // provisional
@@ -55,7 +56,7 @@ public class ControlManager implements KeyListener, MouseListener {
 
   @Override
   public void mouseClicked(MouseEvent e) {
-    
+
   }
 
   @Override
