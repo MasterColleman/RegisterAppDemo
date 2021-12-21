@@ -4,6 +4,8 @@ import com.sergio.RegisterApp.model.Customer;
 import com.sergio.RegisterApp.model.DocType;
 import com.sergio.RegisterApp.model.RegisterManager;
 import com.sergio.RegisterApp.persistence.FileController;
+import com.sergio.RegisterApp.views.CustomerInfoFrame;
+
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -14,29 +16,42 @@ import static org.junit.Assert.*;
  * Unit test for simple App.
  */
 public class AppTest {
-    /**
-     * Rigorous Test :-)
-     */
-    @Test
-    public void shouldAnswerWithTrue() {
-        FileController fileController = new FileController();
-        Customer customer = new Customer(
-                "David", "Rodriguez", DocType.citizenshipCard, "100235482",
-                LocalDate.parse("2008-10-10"));
-        try {
-            fileController.writeFile(customer);
-            Customer anotherCustomer = fileController.readFile(customer.getDocNumber());
-            assertEquals(customer.getDocNumber(), anotherCustomer.getDocNumber());
-        } catch (Exception e) {
-            fail();
-        }
+  /**
+   * Rigorous Test :-)
+   */
+  @Test
+  public void shouldAnswerWithTrue() {
+    FileController fileController = new FileController();
+    Customer customer = new Customer(
+        "David", "Rodriguez", DocType.citizenshipCard, "100235482",
+        LocalDate.parse("2008-10-10"));
+    try {
+      fileController.writeFile(customer);
+      Customer anotherCustomer = fileController.readFile(customer.getDocNumber());
+      assertEquals(customer.getDocNumber(), anotherCustomer.getDocNumber());
+    } catch (Exception e) {
+      fail();
     }
+  }
+
+  @Test
+  public void testCustomerFrame() {
+    Customer customer = new Customer(
+        "David", "Rodriguez", DocType.citizenshipCard, "100235482",
+        LocalDate.parse("2008-10-10"));
+    CustomerInfoFrame frame = new CustomerInfoFrame(customer);
+    while (true) {
+      System.out.println(1);
+    }
+  }
+
   /**
    * Rigorous Test :-)
    */
   public void fileControllerTest() {
     FileController fileController = new FileController();
-    Customer customer = new Customer("David", "Rodriguez", DocType.citizenshipCard, "100235482", LocalDate.parse("2008-10-10"));
+    Customer customer = new Customer("David", "Rodriguez", DocType.citizenshipCard, "100235482",
+        LocalDate.parse("2008-10-10"));
     try {
       fileController.writeFile(customer);
       Customer anotherCustomer = fileController.readFile(customer.getDocNumber());
@@ -46,9 +61,9 @@ public class AppTest {
     }
   }
 
-  @Test
   public void RegisterCustomerTest() {
-    Customer customer = new Customer("David", "Rodriguez", DocType.citizenshipCard, "100235482", LocalDate.parse("2008-10-10"));
+    Customer customer = new Customer("David", "Rodriguez", DocType.citizenshipCard, "100235482",
+        LocalDate.parse("2008-10-10"));
     RegisterManager manager = new RegisterManager();
     try {
       manager.addCustomer(customer);
