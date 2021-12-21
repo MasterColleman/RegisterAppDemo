@@ -1,13 +1,14 @@
 package com.sergio.RegisterApp.model;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.List;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Locale;
 import java.util.stream.Collectors;
-import com.sergio.RegisterApp.exceptions.*;
+
+import com.sergio.RegisterApp.exceptions.CustomerIDAlreadyExistException;
 import com.sergio.RegisterApp.persistence.FileController;
 
 /**
@@ -34,6 +35,10 @@ public class RegisterManager {
     this.listCustomers = listCustomers;
   }
 
+  public void loadCustomers() throws FileNotFoundException {
+    this.listCustomers = fileController.getAllCustomersSaved();
+  }
+
   /**
    * Agregar Cliente
    * 
@@ -55,7 +60,7 @@ public class RegisterManager {
       listCustomers.add(customer);
       fileController.writeFile(customer);
     } else {
-      throw new CustomerIDAlreadyExistException(" ");           //METER MENSAJE AQUI
+      throw new CustomerIDAlreadyExistException(" "); // METER MENSAJE AQUI
     }
   }
 
@@ -76,7 +81,8 @@ public class RegisterManager {
    */
 
   public boolean isValidID(String docNumber, DocType docType) {
-    return listCustomers.stream().noneMatch(customer -> docNumber.equalsIgnoreCase(customer.getDocNumber())&& customer.getDocType() == docType);
+    return listCustomers.stream()
+        .noneMatch(customer -> docNumber.equalsIgnoreCase(customer.getDocNumber()) && customer.getDocType() == docType);
   }
 
   /**
@@ -125,16 +131,17 @@ public class RegisterManager {
    */
   public void updateClient(Customer costumer, String firstNames, String lastNames, DocType docType, String docNumber,
       LocalDate birthDate)/*
-                        * throws CostumerNotFoundException,
-                        * ListCostumersNotFoundException
-                        */ {
+                           * throws CostumerNotFoundException,
+                           * ListCostumersNotFoundException
+                           */ {
     costumer.setFirstNames(firstNames);
     costumer.setLastNames(lastNames);
     costumer.setDocNumber(docNumber);
     costumer.setDocType(docType);
     costumer.setBirthDate(birthDate);
   }
-//
+
+  //
   /**
    * Filtrar Lista
    * 
