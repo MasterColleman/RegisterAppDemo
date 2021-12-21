@@ -33,11 +33,7 @@ public class FileController {
   }
 
   public void getAllCustomersSaved() {
-    File customersFolder = new File(PATH);
-    String[] list = customersFolder.list();
-    for (String element : list) {
-      System.out.println(element);
-    }
+    String[] fileList = new File(PATH).list();
   }
 
   public String objectToJson(Customer customer) {
