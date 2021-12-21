@@ -7,7 +7,7 @@ import java.util.List;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-
+import com.sergio.RegisterApp.exceptions.*;
 import com.sergio.RegisterApp.persistence.FileController;
 
 /**
@@ -48,13 +48,14 @@ public class RegisterManager {
    *          lanza la excepcion
    *          CostumerIDAlreadyExistException
    */
-  public void addCustomer(Customer customer) throws IOException {
+  public void addCustomer(Customer customer) throws IOException, CustomerIDAlreadyExistException {
     String docNumber = customer.getDocNumber();
-    if (isValidID(docNumber)) {
+    DocType docType = customer.getDocType();
+    if (isValidID(docNumber, docType)) {
       listCustomers.add(customer);
       fileController.writeFile(customer);
     } else {
-      /* throw new CostumerIDAlreadyExistException(); */
+      throw new CustomerIDAlreadyExistException(" ");           //METER MENSAJE AQUI
     }
   }
 
@@ -74,9 +75,8 @@ public class RegisterManager {
    *         Existente si el ID del cliente ya existe en la lista.
    */
 
-  public boolean isValidID(String docNumber) {
-    return !listCustomers.stream()
-        .anyMatch(customer -> docNumber.equalsIgnoreCase(customer.getDocNumber()));
+  public boolean isValidID(String docNumber, DocType docType) {
+    return listCustomers.stream().noneMatch(customer -> docNumber.equalsIgnoreCase(customer.getDocNumber())&& customer.getDocType() == docType);
   }
 
   /**
