@@ -1,9 +1,11 @@
 package com.sergio.RegisterApp.views;
 
 
-import com.github.lgooddatepicker.components.DatePicker;
+import com.sergio.RegisterApp.exceptions.DoctypeInvalidException;
 import com.sergio.RegisterApp.model.Customer;
+import com.sergio.RegisterApp.model.DocType;
 
+import javax.print.Doc;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -15,36 +17,27 @@ import java.util.List;
 public class PrincipalWindow extends JFrame {
     private JTextField txtSearch;
     private JButton btnSearch;
-
     private JTable table;
     private JScrollPane scrollPane;
     private TableModel tableModel;
-
     private JButton btnAdd;
     private ArrayList<String> columnNames;
 
+    private CustomerInfoFrame customerInfoFrame;
 
-    public PrincipalWindow(KeyListener kListener) {
-        setTitle("Registro de usuarios");
+
+    public PrincipalWindow(KeyListener kListener, MouseListener mListener) {
+        setTitle("Sergio Suárez - 201912254");
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
         this.setLayout(new GridBagLayout());
-        initComponents(kListener);
+        initComponents(kListener, mListener);
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new PrincipalWindow(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                System.out.println(e.getKeyChar());
-            }
-        });
-    }
-
-    private void initComponents(KeyListener kListener) {
+    private void initComponents(KeyListener kListener, MouseListener mListener) {
         txtSearch = new JTextField();
         txtSearch.addKeyListener(kListener);
         btnSearch = new JButton("Buscar");
@@ -54,22 +47,15 @@ public class PrincipalWindow extends JFrame {
         scrollPane = new JScrollPane(table);
         btnAdd = new JButton("Agregar");
 
-        initTable();
+        initTable(mListener);
         posicionateComponents();
     }
 
-    private void initTable() {
-        columnNames = new ArrayList<>(List.of(new String[]{"Nombre", "Apellido", "Cedula"}));
+    private void initTable(MouseListener mListener) {
+        columnNames = new ArrayList<>(List.of(new String[]{"Nombre", "Apellido", "Cedula", "Tipo", "Nacimiento"}));
         tableModel = new DefaultTableModel(columnNames.toArray(), 0);
         table.setModel(tableModel);
-        table.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    JOptionPane.showMessageDialog(null, "Hola");
-                }
-            }
-        });
+        table.addMouseListener(mListener);
         table.setDefaultEditor(Object.class, null);
     }
 
@@ -111,6 +97,8 @@ public class PrincipalWindow extends JFrame {
             data[i][0] = filterList.get(i).getFirstNames();
             data[i][1] = filterList.get(i).getLastNames();
             data[i][2] = filterList.get(i).getDocNumber();
+            data[i][3] = filterList.get(i).getDocType().getDocType();
+            data[i][4] = filterList.get(i).getBirthDate();
         }
         tableModel = new DefaultTableModel(data, columnNames.toArray());
         table.setModel(tableModel);
@@ -121,4 +109,19 @@ public class PrincipalWindow extends JFrame {
     }
 
 
+    public int getSelectedCustomerID() {
+        return (int) table.getValueAt(table.getSelectedRow(), 2);
+    }
+
+    public DocType getSelectedCustomerDocType() throws DoctypeInvalidException {
+        String type = table.getValueAt(table.getSelectedRow(), 3).toString();
+        for (DocType docType : DocType.values()) {
+            if (docType.getDocType().equals(type)) return docType;
+        }
+        throw new DoctypeInvalidException();
+    }
+
+    public void setCustomer(Customer customer) {
+        customerInfoFrame = new CustomerInfoFrame(customer);
+    }
 }
