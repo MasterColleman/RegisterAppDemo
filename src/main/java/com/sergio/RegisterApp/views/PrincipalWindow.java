@@ -1,9 +1,6 @@
 package com.sergio.RegisterApp.views;
 
-
-import com.github.lgooddatepicker.components.DatePicker;
 import com.sergio.RegisterApp.model.Customer;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -21,7 +18,6 @@ public class PrincipalWindow extends JFrame {
     private TableModel tableModel;
 
     private JButton btnAdd;
-    private DatePicker datePicker;
     private ArrayList<String> columnNames;
 
 
@@ -45,7 +41,6 @@ public class PrincipalWindow extends JFrame {
         table = new JTable(tableModel);
         scrollPane = new JScrollPane(table);
         btnAdd = new JButton("Agregar");
-        datePicker = new DatePicker();
 
         initTable();
         posicionateComponents();
@@ -92,7 +87,6 @@ public class PrincipalWindow extends JFrame {
         add(btnAdd, gbc);
         gbc.gridx = 0;
         gbc.gridy++;
-        add(datePicker, gbc);
 
     }
 
