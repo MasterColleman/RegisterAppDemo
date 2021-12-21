@@ -166,11 +166,13 @@ public class RegisterManager {
    */
   public void removeCustomer(String docNumber, DocType docType) throws CustomerNotFoundException {
     if (existID(docNumber, docType)) {
-      IntStream.range(0, listCustomers.size() - 1)
-          .filter(i -> (docNumber.equalsIgnoreCase(listCustomers.get(i).getDocNumber())
-              && (docType == (listCustomers.get(i).getDocType()))))
-          .forEach(i -> listCustomers.remove(i));
-      fileController.removeFile(docNumber);
+      for (Customer element : listCustomers) {
+        if (element.getDocNumber().equalsIgnoreCase(docNumber) && element.getDocType() == docType) {
+          listCustomers.remove(element);
+          fileController.removeFile(docNumber);
+          return;
+        }
+      }
     } else {
       throw new CustomerNotFoundException("Cliente no fue encontrado.");
     }
