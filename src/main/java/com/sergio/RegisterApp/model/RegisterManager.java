@@ -9,24 +9,24 @@ import java.util.ArrayList;
  */
 public class RegisterManager {
 
-  private ArrayList<Costumer> listCostumers;
+  private ArrayList<Customer> listCustomers;
 
   public RegisterManager() {
-    listCostumers = new ArrayList<>();
+    listCustomers = new ArrayList<>();
   }
 
-  public ArrayList<Costumer> getListCostumers() {
-    return listCostumers;
+  public ArrayList<Customer> getListCustomers() {
+    return listCustomers;
   }
 
-  public void setListCostumers(ArrayList<Costumer> listCostumers) {
-    this.listCostumers = listCostumers;
+  public void setListCustomers(ArrayList<Customer> listCustomers) {
+    this.listCustomers = listCustomers;
   }
 
   /**
    * Agregar Cliente
    * 
-   * @param costumer
+   * @param customer
    *                 Cliente tipo Costumer
    * @apiNote
    *          Se verifica si el cliente es nulo, si lo es lanza la excepcion
@@ -37,13 +37,13 @@ public class RegisterManager {
    *          lanza la excepcion
    *          CostumerIDAlreadyExistException
    */
-  public void addCostumer(Costumer costumer)/* throws CostumerNotFoundException, CostumerIDAlreadyExistException */ {
-    if (costumer != null) {
-      String docNumber = costumer.getDocNumber();
-      DocType docType = costumer.getDocType();
+  public void addCustomer(Customer customer)/* throws CostumerNotFoundException, CostumerIDAlreadyExistException */ {
+    if (customer != null) {
+      String docNumber = customer.getDocNumber();
+      DocType docType = customer.getDocType();
       String iD = validateID(docNumber, docType);
       if (iD == "Inexistente")
-        listCostumers.add(costumer);
+        listCustomers.add(customer);
       else {
         /* throw new CostumerIDAlreadyExistException(); */
       }
@@ -69,10 +69,10 @@ public class RegisterManager {
    */
   private String validateID(String docNumber, DocType docType) {
     String validID = "Inexistente";
-    if (listCostumers != null) {
-      for (int i = 0; i < listCostumers.size(); i++) {
-        if ((docNumber.equalsIgnoreCase(listCostumers.get(i).getDocNumber())
-            && (docType == (listCostumers.get(i).getDocType()))))
+    if (listCustomers != null) {
+      for (int i = 0; i < listCustomers.size(); i++) {
+        if ((docNumber.equalsIgnoreCase(listCustomers.get(i).getDocNumber())
+            && (docType == (listCustomers.get(i).getDocType()))))
           validID = "Existente";
       }
     }
@@ -95,12 +95,12 @@ public class RegisterManager {
    *         CostumerNotFoundException.
    *         Retorna el indice del cliente si es encontrado.
    */
-  public int searchIndexCostumer(String firstOrLastName) /* throws CostumerNotFoundException */ {
+  public int searchIndexCustomer(String firstOrLastName) /* throws CostumerNotFoundException */ {
     int j = -1;
-    if (listCostumers != null) {
-      for (int i = 0; i < listCostumers.size(); i++) {
-        if ((firstOrLastName.equalsIgnoreCase(listCostumers.get(i).getFirstNames())
-            || (firstOrLastName.equalsIgnoreCase(listCostumers.get(i).getLastNames()))))
+    if (listCustomers != null) {
+      for (int i = 0; i < listCustomers.size(); i++) {
+        if ((firstOrLastName.equalsIgnoreCase(listCustomers.get(i).getFirstNames())
+            || (firstOrLastName.equalsIgnoreCase(listCustomers.get(i).getLastNames()))))
           j = i;
       }
       /* throw new CostumerNotFoundException(); */ // tengo dudas aqui
@@ -127,13 +127,13 @@ public class RegisterManager {
    *         Un cliente de tipo de objeto Costumer.
    * 
    */
-  public Costumer searchCostumer(String firstOrLastName)
+  public Customer searchCustomer(String firstOrLastName)
   /*
    * throws CostumerNotFoundException,
    * ListCostumersNotFoundException
    */ { // Tengo dudas aqui
-    int x = searchIndexCostumer(firstOrLastName);
-    Costumer costumer = null;
+    int x = searchIndexCustomer(firstOrLastName);
+    Customer customer = null;
     switch (x) {
       case -2:
         /* throw new CostumerNotFoundException(); */
@@ -142,9 +142,9 @@ public class RegisterManager {
         /* throw new ListCostumersNotFoundException(); */
         break;
       default:
-        costumer = listCostumers.get(x);
+        customer = listCustomers.get(x);
     }
-    return costumer;
+    return customer;
   }
 
   /**
@@ -155,7 +155,7 @@ public class RegisterManager {
    * @apiNote
    *          Elimina un cliente en la lista
    */
-  public void removeCostumer(String docNumber, DocType docType) /*
+  public void removeCustomer(String docNumber, DocType docType) /*
                                                                  * throws CostumerNotFoundException,
                                                                  * ListCostumersNotFoundException
                                                                  */ {
@@ -166,10 +166,10 @@ public class RegisterManager {
      */
     String iD = validateID(docNumber, docType);
     if (iD == "Existente") {
-      for (int i = 0; i < listCostumers.size(); i++) {
-        if ((docNumber.equalsIgnoreCase(listCostumers.get(i).getDocNumber())
-            && (docType == (listCostumers.get(i).getDocType()))))
-          listCostumers.remove(i);
+      for (int i = 0; i < listCustomers.size(); i++) {
+        if ((docNumber.equalsIgnoreCase(listCustomers.get(i).getDocNumber())
+            && (docType == (listCustomers.get(i).getDocType()))))
+          listCustomers.remove(i);
       }
     } else {
       /* throw new CostumerNotFoundException(), ListCostumersNotFoundException(); */
@@ -190,7 +190,7 @@ public class RegisterManager {
    *          lista) y le setea nuevamente todos los atributos al objeto, para
    *          actualizarlo.
    */
-  public void updateClient(Costumer costumer, String firstNames, String lastNames, DocType docType, String docNumber,
+  public void updateClient(Customer costumer, String firstNames, String lastNames, DocType docType, String docNumber,
       String birthDate)/*
                         * throws CostumerNotFoundException,
                         * ListCostumersNotFoundException
@@ -212,13 +212,13 @@ public class RegisterManager {
    * @apiNote
    *          Este metodo solo se usa para filtrar la lista de clientes con
    *          palabras clave, para tener como resultado una lista mas
-   *          pequeña que solo posea los resultados que contienen plabras clave
+   *          peque¿a que solo posea los resultados que contienen plabras clave
    *          (como el inicio de un nombre o apellido, o el inicio
    *          de un numero de documento; respecto a dicho cliente).
    */
-  public ArrayList<Costumer> filterList(String keywords) {
-    ArrayList<Costumer> filteredList = new ArrayList<Costumer>();
-    for (Costumer costumer : listCostumers) {
+  public ArrayList<Customer> filterList(String keywords) {
+    ArrayList<Customer> filteredList = new ArrayList<Customer>();
+    for (Customer costumer : listCustomers) {
       if (costumer.getFirstNames().contains(keywords) || costumer.getLastNames().contains(keywords))
         filteredList.add(costumer);
       else if (costumer.getDocNumber().contains(keywords))

@@ -10,39 +10,33 @@ import com.sergio.RegisterApp.model.*;
 
 public class FileController {
 
-	private final String path = "./assets/example.txt";
+  private static final String PATH = "customers/";
+  private static final String EXTENSION = ".customer";
 
-	public void readFile() throws FileNotFoundException {
-		File f = new File(path);
-		Scanner scanner = new Scanner(f);
-	    System.out.println("====> Start File");
-	    while (scanner.hasNextLine()) {
-	    	String data = scanner.nextLine();
-	    	System.out.println(data);
-	    }
-	    System.out.println("====> End File");
-	    scanner.close();
-	}
-
-	public void writeFile() throws IOException {
-	    Scanner scanner = new Scanner(System.in);
-	    System.out.println("Digite el texto:");
-	    String text = scanner.nextLine();
-	    FileWriter myWriter = new FileWriter(path);
-	    System.out.println("texto guardado correctamente");
-	    myWriter.write(text);
-	    myWriter.close();
-	    scanner.close();
-	}
-	
-	public String objectToJson(Costumer person) {
-        Gson gson = new Gson();
-        return gson.toJson(person);
+  public Customer readFile(String cutomerId) throws FileNotFoundException {
+    File file = new File(PATH + cutomerId + EXTENSION);
+    Scanner scanner = new Scanner(file);
+    StringBuilder jsonCostumer = new StringBuilder();
+    while (scanner.hasNextLine()) {
+      jsonCostumer.append(scanner.nextLine());
     }
+    scanner.close();
+    return jsonToObject(jsonCostumer.toString());
+  }
 
-    public Costumer jsonToObject(String json) {
-        Gson gson = new Gson();
-        return gson.fromJson(json, Costumer.class);
-    }
-	
+  public void writeFile(Customer customer) throws IOException {
+    FileWriter writer = new FileWriter(PATH + customer.getDocNumber() + EXTENSION);
+    String jsonCostumer = objectToJson(customer);
+    writer.write(jsonCostumer);
+    writer.close();
+  }
+
+  public String objectToJson(Customer customer) {
+    return new Gson().toJson(customer);
+  }
+
+  public Customer jsonToObject(String json) {
+    return new Gson().fromJson(json, Customer.class);
+  }
+
 }
