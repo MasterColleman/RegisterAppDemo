@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * 
- * @author Sergio Suárez
+ * @author Sergio Suarez
  *
  */
 public class RegisterManager {
