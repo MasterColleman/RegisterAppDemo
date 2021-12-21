@@ -22,13 +22,13 @@ public class Customer {
   private String birthDate;
   // private DatePicker datepicker;
 
-  public Customer(String firstNames, String lastNames, DocType docType, String docNumber, String birthDate) {
+  public Customer(String firstNames, String lastNames, DocType docType, String docNumber, LocalDate birthDate) {
     super();
     this.firstNames = firstNames;
     this.lastNames = lastNames;
     this.docType = docType;
     this.docNumber = docNumber;
-    this.birthDate = birthDate;
+    this.birthDate = birthDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
   }
 
   public String getFirstNames() {
@@ -67,10 +67,10 @@ public class Customer {
     return birthDate;
   }
 
-  public void setBirthDate(/* DatePicker birthDate */) {
+  public void setBirthDate(LocalDate birthDate) {
     // Usar la App de calendario LGoodDatePicker para escojer la fecha y usarla aqui
     // para extraer la fecha
-    String birth = "";
+    String birth = birthDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
     /*
      * Con metodos propios de la libreria se extraen los espacios de la fecha, se
      * guardan en enteros
