@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * 
- * @author Sergio Suárez
+ * @author Sergio Suarez
  *
  */
 public class RegisterManager {
@@ -212,7 +212,7 @@ public class RegisterManager {
    * @apiNote
    *          Este metodo solo se usa para filtrar la lista de clientes con
    *          palabras clave, para tener como resultado una lista mas
-   *          pequeña que solo posea los resultados que contienen plabras clave
+   *          pequeï¿½a que solo posea los resultados que contienen plabras clave
    *          (como el inicio de un nombre o apellido, o el inicio
    *          de un numero de documento; respecto a dicho cliente).
    */
