@@ -13,16 +13,15 @@ public class FileController {
   private static final String PATH = "customers/";
   private static final String EXTENSION = ".customer";
 
-  public void readFile() throws FileNotFoundException {
-    File f = new File(PATH);
-    Scanner scanner = new Scanner(f);
-    System.out.println("====> Start File");
+  public Customer readFile(String cutomerId) throws FileNotFoundException {
+    File file = new File(PATH + cutomerId + EXTENSION);
+    Scanner scanner = new Scanner(file);
+    StringBuilder jsonCostumer = new StringBuilder();
     while (scanner.hasNextLine()) {
-      String data = scanner.nextLine();
-      System.out.println(data);
+      jsonCostumer.append(scanner.nextLine());
     }
-    System.out.println("====> End File");
     scanner.close();
+    return jsonToObject(jsonCostumer.toString());
   }
 
   public void writeFile(Customer customer) throws IOException {
