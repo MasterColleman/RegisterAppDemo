@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import com.sergio.RegisterApp.exceptions.CustomerIDAlreadyExistException;
 import com.sergio.RegisterApp.exceptions.CustomerNotFoundException;
