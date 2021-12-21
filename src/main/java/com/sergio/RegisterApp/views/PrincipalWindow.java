@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,23 +18,20 @@ public class PrincipalWindow extends JFrame {
 
     private JButton btnAdd;
 
-    public PrincipalWindow() {
+    public PrincipalWindow(KeyListener kListener) {
         setTitle("Registro de usuarios");
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
         this.setLayout(new GridBagLayout());
-        initComponents();
+        initComponents(kListener);
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new PrincipalWindow();
-    }
-
-    private void initComponents() {
+    private void initComponents(KeyListener kListener) {
         txtSearch = new JTextField();
+        txtSearch.addKeyListener(kListener);
         btnSearch = new JButton("Buscar");
 
         tableModel = new DefaultTableModel();
@@ -46,8 +44,8 @@ public class PrincipalWindow extends JFrame {
 
     private void initTable() {
         ArrayList<String> columnNames = new ArrayList<>(
-                List.of(new String[]{"Nombre", "Apellido", "Edad", "Dirección"}));
-        tableModel = new DefaultTableModel(columnNames.toArray(), 10);
+                List.of(new String[]{"Nombre", "Apellido", "Cedula"}));
+        tableModel = new DefaultTableModel(columnNames.toArray(), 0);
         table.setModel(tableModel);
     }
 

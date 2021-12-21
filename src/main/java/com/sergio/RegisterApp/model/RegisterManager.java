@@ -212,11 +212,7 @@ public class RegisterManager {
    * @apiNote
    *          Este metodo solo se usa para filtrar la lista de clientes con
    *          palabras clave, para tener como resultado una lista mas
-<<<<<<< HEAD
-   *          pequeï¿½a que solo posea los resultados que contienen plabras clave
-=======
    *          peque¿a que solo posea los resultados que contienen plabras clave
->>>>>>> origin/main
    *          (como el inicio de un nombre o apellido, o el inicio
    *          de un numero de documento; respecto a dicho cliente).
    */
