@@ -1,12 +1,10 @@
-package run;
+package com.sergio.RegisterApp.run;
 
-import controller.ControlManager;
+import com.sergio.RegisterApp.controller.ControlManager;
 
 public class Runner {
 
-public static void main(String[] args) {
-		
-		new ControlManager();
-
-	}
+  public static void main(String[] args) {
+    new ControlManager();
+  }
 }
