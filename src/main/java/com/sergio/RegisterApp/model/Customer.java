@@ -20,7 +20,6 @@ public class Customer {
   private DocType docType;
   private String docNumber;
   private String birthDate;
-  // private DatePicker datepicker;
 
   public Customer(String firstNames, String lastNames, DocType docType, String docNumber, LocalDate birthDate) {
     super();

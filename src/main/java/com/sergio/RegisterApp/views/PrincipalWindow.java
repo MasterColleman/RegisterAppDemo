@@ -21,7 +21,6 @@ public class PrincipalWindow extends JFrame {
     private TableModel tableModel;
 
     private JButton btnAdd;
-    private DatePicker datePicker;
     private ArrayList<String> columnNames;
 
 
@@ -36,6 +35,15 @@ public class PrincipalWindow extends JFrame {
         setVisible(true);
     }
 
+    public static void main(String[] args) {
+        new PrincipalWindow(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                System.out.println(e.getKeyChar());
+            }
+        });
+    }
+
     private void initComponents(KeyListener kListener) {
         txtSearch = new JTextField();
         txtSearch.addKeyListener(kListener);
@@ -45,16 +53,14 @@ public class PrincipalWindow extends JFrame {
         table = new JTable(tableModel);
         scrollPane = new JScrollPane(table);
         btnAdd = new JButton("Agregar");
-        datePicker = new DatePicker();
 
         initTable();
         posicionateComponents();
     }
 
     private void initTable() {
-        columnNames = new ArrayList<>(
-                List.of(new String[]{"Nombre", "Apellido", "Cedula"}));
-        tableModel = new DefaultTableModel(columnNames.toArray(), 1);
+        columnNames = new ArrayList<>(List.of(new String[]{"Nombre", "Apellido", "Cedula"}));
+        tableModel = new DefaultTableModel(columnNames.toArray(), 0);
         table.setModel(tableModel);
         table.addMouseListener(new MouseAdapter() {
             @Override
@@ -73,6 +79,7 @@ public class PrincipalWindow extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridy = 0;
         gbc.weightx = .8;
+        gbc.insets = new Insets(10, 10, 10, 10);
         add(txtSearch, gbc);
         gbc.gridx++;
         gbc.weightx = .2;
@@ -90,19 +97,7 @@ public class PrincipalWindow extends JFrame {
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.EAST;
         add(btnAdd, gbc);
-        gbc.gridx = 0;
-        gbc.gridy++;
-        add(datePicker, gbc);
 
-    }
-
-    public static void main(String[] args) {
-        new PrincipalWindow(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                System.out.println(e.getKeyChar());
-            }
-        });
     }
 
     public String getKeywords() {
@@ -119,5 +114,11 @@ public class PrincipalWindow extends JFrame {
         }
         tableModel = new DefaultTableModel(data, columnNames.toArray());
         table.setModel(tableModel);
+
+        table.getTableHeader().setReorderingAllowed(false);
+        table.getTableHeader().setResizingAllowed(false);
+
     }
+
+
 }
