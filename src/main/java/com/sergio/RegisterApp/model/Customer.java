@@ -67,19 +67,7 @@ public class Customer {
   }
 
   public void setBirthDate(LocalDate birthDate) {
-    // Usar la App de calendario LGoodDatePicker para escojer la fecha y usarla aqui
-    // para extraer la fecha
     String birth = birthDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-    /*
-     * Con metodos propios de la libreria se extraen los espacios de la fecha, se
-     * guardan en enteros
-     * y posteriormente en un string que se guarda en el set de fecha de nacimiento
-     * del cliente
-     * int day = birthDate.getDayOfMonth();
-     * int month = birthDate.getMonth();
-     * int year = birthDate.getYear();
-     * birth = year + "-" + month + "-" + day;
-     */
     this.birthDate = birth;
   }
 

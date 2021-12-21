@@ -5,12 +5,12 @@ import com.sergio.RegisterApp.exceptions.DoctypeInvalidException;
 import com.sergio.RegisterApp.model.Customer;
 import com.sergio.RegisterApp.model.DocType;
 
-import javax.print.Doc;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,7 +83,6 @@ public class PrincipalWindow extends JFrame {
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.EAST;
         add(btnAdd, gbc);
-
     }
 
     public String getKeywords() {
