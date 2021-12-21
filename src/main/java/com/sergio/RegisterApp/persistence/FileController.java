@@ -4,18 +4,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.google.gson.Gson;
-import com.sergio.RegisterApp.model.*;
+import com.sergio.RegisterApp.model.Customer;
 
 public class FileController {
 
   private static final String PATH = "customers/";
   private static final String EXTENSION = ".customer";
 
-  public Customer readFile(String cutomerId) throws FileNotFoundException {
-    File file = new File(PATH + cutomerId + EXTENSION);
+  public Customer readFile(String customerId) throws FileNotFoundException {
+    File file = new File(PATH + customerId + EXTENSION);
     Scanner scanner = new Scanner(file);
     StringBuilder jsonCostumer = new StringBuilder();
     while (scanner.hasNextLine()) {
@@ -32,8 +33,16 @@ public class FileController {
     writer.close();
   }
 
-  public void getAllCustomersSaved() {
+  public ArrayList<Customer> getAllCustomersSaved() throws FileNotFoundException {
+    ArrayList<Customer> savedCustomers = new ArrayList<Customer>();
     String[] fileList = new File(PATH).list();
+    for (String fileName : fileList) {
+      if (!fileName.contains(EXTENSION))
+        continue;
+      String customerId = fileName.replace(EXTENSION, "");
+      savedCustomers.add(readFile(customerId));
+    }
+    return savedCustomers;
   }
 
   public String objectToJson(Customer customer) {
