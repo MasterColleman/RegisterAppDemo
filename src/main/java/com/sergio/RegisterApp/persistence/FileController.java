@@ -32,6 +32,10 @@ public class FileController {
     writer.close();
   }
 
+  public void getAllCustomersSaved() {
+    String[] fileList = new File(PATH).list();
+  }
+
   public String objectToJson(Customer customer) {
     return new Gson().toJson(customer);
   }
