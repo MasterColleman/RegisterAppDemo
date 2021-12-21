@@ -32,6 +32,14 @@ public class FileController {
     writer.close();
   }
 
+  public void getAllCustomersSaved() {
+    File customersFolder = new File(PATH);
+    String[] list = customersFolder.list();
+    for (String element : list) {
+      System.out.println(element);
+    }
+  }
+
   public String objectToJson(Customer customer) {
     return new Gson().toJson(customer);
   }
