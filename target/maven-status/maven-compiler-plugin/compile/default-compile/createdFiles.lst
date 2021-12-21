@@ -1,0 +1,5 @@
+com/sergio/RegisterApp/model/DocType.class
+com/sergio/RegisterApp/model/RegisterManager.class
+com/sergio/RegisterApp/controller/ControlManager.class
+com/sergio/RegisterApp/persistence/FileController.class
+com/sergio/RegisterApp/run/Runner.class
