@@ -109,7 +109,7 @@ public class PrincipalWindow extends JFrame {
         return txtSearch.getText();
     }
 
-    public void setCustomers(ArrayList<Customer> filterList) {
+    public void setCustomers(List<Customer> filterList) {
         System.out.println(filterList);
         Object[][] data = new Object[filterList.size()][columnNames.size()];
         for (int i = 0; i < filterList.size(); i++) {
