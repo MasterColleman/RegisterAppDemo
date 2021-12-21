@@ -15,6 +15,8 @@ public class PrincipalWindow extends JFrame {
     private JScrollPane scrollPane;
     private TableModel tableModel;
 
+    private JButton btnAdd;
+
     public PrincipalWindow() {
         setTitle("Registro de usuarios");
         setSize(400, 400);
@@ -37,6 +39,7 @@ public class PrincipalWindow extends JFrame {
         tableModel = new DefaultTableModel();
         table = new JTable(tableModel);
         scrollPane = new JScrollPane(table);
+        btnAdd = new JButton("Agregar");
         initTable();
         posicionateComponents();
     }
@@ -64,6 +67,13 @@ public class PrincipalWindow extends JFrame {
         gbc.weighty = 1;
         gbc.fill = GridBagConstraints.BOTH;
         add(scrollPane, gbc);
+        gbc.gridx = 0;
+        gbc.gridy++;
+        gbc.gridwidth = 2;
+        gbc.weighty = 0;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.EAST;
+        add(btnAdd, gbc);
 
     }
 }

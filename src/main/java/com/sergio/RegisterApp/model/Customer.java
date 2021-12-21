@@ -13,7 +13,7 @@ import java.util.Locale;
  * @author Sergio Suárez
  *
  */
-public class Costumer {
+public class Customer {
 
   private String firstNames;
   private String lastNames;
@@ -22,7 +22,7 @@ public class Costumer {
   private String birthDate;
   // private DatePicker datepicker;
 
-  public Costumer(String firstNames, String lastNames, DocType docType, String docNumber, String birthDate) {
+  public Customer(String firstNames, String lastNames, DocType docType, String docNumber, String birthDate) {
     super();
     this.firstNames = firstNames;
     this.lastNames = lastNames;
