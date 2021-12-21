@@ -1,6 +1,8 @@
 package com.sergio.RegisterApp.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * 
@@ -191,7 +193,7 @@ public class RegisterManager {
    *          actualizarlo.
    */
   public void updateClient(Customer costumer, String firstNames, String lastNames, DocType docType, String docNumber,
-      String birthDate)/*
+      LocalDate birthDate)/*
                         * throws CostumerNotFoundException,
                         * ListCostumersNotFoundException
                         */ {
@@ -199,7 +201,7 @@ public class RegisterManager {
     costumer.setLastNames(lastNames);
     costumer.setDocNumber(docNumber);
     costumer.setDocType(docType);
-    costumer.setBirthDate();
+    costumer.setBirthDate(birthDate);
   }
 
   /**
@@ -212,14 +214,16 @@ public class RegisterManager {
    * @apiNote
    *          Este metodo solo se usa para filtrar la lista de clientes con
    *          palabras clave, para tener como resultado una lista mas
-   *          peque¿a que solo posea los resultados que contienen plabras clave
+   *          pequeï¿½a que solo posea los resultados que contienen plabras clave
    *          (como el inicio de un nombre o apellido, o el inicio
    *          de un numero de documento; respecto a dicho cliente).
    */
   public ArrayList<Customer> filterList(String keywords) {
     ArrayList<Customer> filteredList = new ArrayList<Customer>();
     for (Customer costumer : listCustomers) {
-      if (costumer.getFirstNames().contains(keywords) || costumer.getLastNames().contains(keywords))
+      if (costumer.getFirstNames().toLowerCase(
+              Locale.ROOT).contains(keywords.toLowerCase(Locale.ROOT)) || costumer.getLastNames().toLowerCase(
+              Locale.ROOT).contains(keywords.toLowerCase(Locale.ROOT)))
         filteredList.add(costumer);
       else if (costumer.getDocNumber().contains(keywords))
         filteredList.add(costumer);
