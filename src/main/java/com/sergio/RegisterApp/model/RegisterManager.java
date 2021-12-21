@@ -1,15 +1,20 @@
 package com.sergio.RegisterApp.model;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.List;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Locale;
 import java.util.stream.Collectors;
+
 import java.util.stream.IntStream;
 
 import com.sergio.RegisterApp.exceptions.*;
+
+
+import com.sergio.RegisterApp.exceptions.CustomerIDAlreadyExistException;
+
 import com.sergio.RegisterApp.persistence.FileController;
 
 /**
@@ -36,6 +41,10 @@ public class RegisterManager {
     this.listCustomers = listCustomers;
   }
 
+  public void loadCustomers() throws FileNotFoundException {
+    this.listCustomers = fileController.getAllCustomersSaved();
+  }
+
   /**
    * Agregar Cliente
    * 
@@ -58,6 +67,7 @@ public class RegisterManager {
       fileController.writeFile(customer);
     } else {
       throw new CustomerIDAlreadyExistException("El Cliente ya existe en la Lista, por favor cambie el numero o tipo de documento");           //METER MENSAJE AQUI
+
     }
   }
 
@@ -76,7 +86,6 @@ public class RegisterManager {
    *         Inexistente si el ID del cliente no existe en la lista.
    *         Existente si el ID del cliente ya existe en la lista.
    */
-
   public boolean existID(String docNumber, DocType docType) {
     return listCustomers.stream().noneMatch(customer -> docNumber.equalsIgnoreCase(customer.getDocNumber())&& customer.getDocType() == docType);
   }
@@ -150,7 +159,6 @@ public class RegisterManager {
 
   /**
    * Actualizar Cliente
-   * 
    * @param costumer
    * @param firstNames
    * @param lastNames
@@ -163,17 +171,15 @@ public class RegisterManager {
    *          actualizarlo.
    */
   public void updateClient(Customer costumer, String firstNames, String lastNames, DocType docType, String docNumber,
-      LocalDate birthDate)/*
-                        * throws CostumerNotFoundException,
-                        * ListCostumersNotFoundException
-                        */ {
+      LocalDate birthDate)throws CustomerNotFoundException, ListCustomersNotFoundException {
     costumer.setFirstNames(firstNames);
     costumer.setLastNames(lastNames);
     costumer.setDocNumber(docNumber);
     costumer.setDocType(docType);
     costumer.setBirthDate(birthDate);
   }
-//
+
+  //
   /**
    * Filtrar Lista
    * 

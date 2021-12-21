@@ -8,6 +8,7 @@ import com.sergio.RegisterApp.views.CustomerInfoFrame;
 
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 
 import static org.junit.Assert.*;
@@ -20,26 +21,17 @@ public class AppTest {
    * Rigorous Test :-)
    */
   @Test
-  public void shouldAnswerWithTrue() {
+  public void filesSaved() throws FileNotFoundException {
     FileController fileController = new FileController();
-    Customer customer = new Customer(
-        "David", "Rodriguez", DocType.citizenshipCard, "100235482",
-        LocalDate.parse("2008-10-10"));
-    try {
-      fileController.writeFile(customer);
-      Customer anotherCustomer = fileController.readFile(customer.getDocNumber());
-      assertEquals(customer.getDocNumber(), anotherCustomer.getDocNumber());
-    } catch (Exception e) {
-      fail();
-    }
+    fileController.getAllCustomersSaved();
+    assertTrue(false);
   }
 
-  @Test
   public void testCustomerFrame() {
     Customer customer = new Customer(
         "David", "Rodriguez", DocType.citizenshipCard, "100235482",
         LocalDate.parse("2008-10-10"));
-    CustomerInfoFrame frame = new CustomerInfoFrame(customer);
+    new CustomerInfoFrame(customer);
     while (true) {
       System.out.println(1);
     }

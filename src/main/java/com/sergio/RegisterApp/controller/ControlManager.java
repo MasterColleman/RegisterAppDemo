@@ -1,20 +1,17 @@
 package com.sergio.RegisterApp.controller;
 
 import com.sergio.RegisterApp.exceptions.CustomerIDAlreadyExistException;
-import com.sergio.RegisterApp.model.Customer;
-import com.sergio.RegisterApp.model.DocType;
 import com.sergio.RegisterApp.model.RegisterManager;
 import com.sergio.RegisterApp.views.PrincipalWindow;
 
 import java.awt.event.*;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.EventListener;
 
 /**
  * ControlManager
  */
 public class ControlManager implements KeyListener, MouseListener {
+
   private RegisterManager registerManager;
   private PrincipalWindow principalWindow;
 
@@ -22,16 +19,17 @@ public class ControlManager implements KeyListener, MouseListener {
     this.principalWindow = new PrincipalWindow(this);
     this.registerManager = new RegisterManager();
     // provisional
-    registerManager.addCustomer(new Customer("David", "Rodriguez", DocType.citizenshipCard, "100235482",
-        LocalDate.parse("2008-10-10")));
-    registerManager.addCustomer(new Customer("Cristian", "Sanchez", DocType.citizenshipCard, "100245645",
-        LocalDate.parse("2008-10-10")));
     loadCustomers();
 
   }
 
   private void loadCustomers() {
-    principalWindow.setCustomers(registerManager.getListCustomers());
+    try {
+      registerManager.loadCustomers();
+      principalWindow.setCustomers(registerManager.getListCustomers());
+    } catch (Exception e) {
+      System.err.println(e);
+    }
   }
 
   private void getCustomersFromKeywords() {
