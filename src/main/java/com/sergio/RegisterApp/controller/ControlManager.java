@@ -1,23 +1,24 @@
 package com.sergio.RegisterApp.controller;
 
+import com.sergio.RegisterApp.exceptions.CustomerIDAlreadyExistException;
 import com.sergio.RegisterApp.model.Customer;
 import com.sergio.RegisterApp.model.DocType;
 import com.sergio.RegisterApp.model.RegisterManager;
 import com.sergio.RegisterApp.views.PrincipalWindow;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.EventListener;
 
 /**
  * ControlManager
  */
-public class ControlManager implements KeyListener {
+public class ControlManager implements KeyListener, MouseListener {
   private RegisterManager registerManager;
   private PrincipalWindow principalWindow;
 
-  public ControlManager() throws IOException {
+  public ControlManager() throws IOException, CustomerIDAlreadyExistException {
     this.principalWindow = new PrincipalWindow(this);
     this.registerManager = new RegisterManager();
     // provisional
@@ -51,5 +52,30 @@ public class ControlManager implements KeyListener {
   @Override
   public void keyReleased(KeyEvent e) {
     getCustomersFromKeywords();
+  }
+
+  @Override
+  public void mouseClicked(MouseEvent e) {
+
+  }
+
+  @Override
+  public void mousePressed(MouseEvent e) {
+
+  }
+
+  @Override
+  public void mouseReleased(MouseEvent e) {
+
+  }
+
+  @Override
+  public void mouseEntered(MouseEvent e) {
+
+  }
+
+  @Override
+  public void mouseExited(MouseEvent e) {
+
   }
 }
