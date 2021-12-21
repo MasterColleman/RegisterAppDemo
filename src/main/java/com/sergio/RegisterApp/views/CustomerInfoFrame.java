@@ -100,6 +100,7 @@ public class CustomerInfoFrame extends JFrame {
   }
 
   public static void main(String[] args) {
-    new CustomerInfoFrame(new Customer("Sergio", "Perez", DocType.citizenshipCard, "12345678", LocalDate.parse("1996-01-01")));
+    new CustomerInfoFrame(
+        new Customer("Sergio", "Perez", DocType.citizenshipCard, "12345678", LocalDate.parse("1996-01-01")));
   }
 }
