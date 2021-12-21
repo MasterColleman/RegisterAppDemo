@@ -10,7 +10,7 @@ import java.util.Locale;
 //import javax.swing.DatePicker;
 
 /**
- * @author Sergio Suárez
+ * @author Sergio Suarez
  *
  */
 public class Customer {
