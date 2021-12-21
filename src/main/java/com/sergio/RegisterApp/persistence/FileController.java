@@ -26,6 +26,10 @@ public class FileController {
     return jsonToObject(jsonCostumer.toString());
   }
 
+  public void removeFile(String customerId) {
+    new File(PATH + customerId + EXTENSION).delete();
+  }
+
   public void writeFile(Customer customer) throws IOException {
     FileWriter writer = new FileWriter(PATH + customer.getDocNumber() + EXTENSION);
     String jsonCostumer = objectToJson(customer);
