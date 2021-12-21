@@ -12,7 +12,6 @@ import java.util.stream.IntStream;
 
 import com.sergio.RegisterApp.exceptions.*;
 
-
 import com.sergio.RegisterApp.exceptions.CustomerIDAlreadyExistException;
 
 import com.sergio.RegisterApp.persistence.FileController;
@@ -66,7 +65,8 @@ public class RegisterManager {
       listCustomers.add(customer);
       fileController.writeFile(customer);
     } else {
-      throw new CustomerIDAlreadyExistException("El Cliente ya existe en la Lista, por favor cambie el numero o tipo de documento");           //METER MENSAJE AQUI
+      throw new CustomerIDAlreadyExistException(
+          "El Cliente ya existe en la Lista, por favor cambie el numero o tipo de documento"); // METER MENSAJE AQUI
 
     }
   }
@@ -87,27 +87,32 @@ public class RegisterManager {
    *         Existente si el ID del cliente ya existe en la lista.
    */
   public boolean existID(String docNumber, DocType docType) {
-    return listCustomers.stream().noneMatch(customer -> docNumber.equalsIgnoreCase(customer.getDocNumber())&& customer.getDocType() == docType);
+    return listCustomers.stream()
+        .noneMatch(customer -> docNumber.equalsIgnoreCase(customer.getDocNumber()) && customer.getDocType() == docType);
   }
 
   /**
    * Buscar indice de Cliente
+   * 
    * @apiNote
-   * Busca el indice de un cliente en la lista de clientes, si existe y si la lista no es null;
-   * a partir del nombre o apellido completo y exacto (como se encuentra en este registro).
+   *          Busca el indice de un cliente en la lista de clientes, si existe y
+   *          si la lista no es null;
+   *          a partir del nombre o apellido completo y exacto (como se encuentra
+   *          en este registro).
    * @param firstOrLastName
-   * Nombre o Apellido Completo del cliente.
+   *                        Nombre o Apellido Completo del cliente.
    * @return
-   * Retorna (-1) si la lista de cliente es null.
-   * Lanza la excepcion CustomerNotFoundException si el cliente no es encontrado.
-   * Retorna el indice del cliente si es encontrado.
+   *         Retorna (-1) si la lista de cliente es null.
+   *         Lanza la excepcion CustomerNotFoundException si el cliente no es
+   *         encontrado.
+   *         Retorna el indice del cliente si es encontrado.
    */
-  public int searchIndexCustomer(String firstOrLastName) throws CustomerNotFoundException{
+  public int searchIndexCustomer(String firstOrLastName) throws CustomerNotFoundException {
     int j = -1;
-    if(listCustomers != null) {
+    if (listCustomers != null) {
       for (int i = 0; i < listCustomers.size(); i++) {
         if ((firstOrLastName.equalsIgnoreCase(listCustomers.get(i).getFirstNames())
-                || (firstOrLastName.equalsIgnoreCase(listCustomers.get(i).getLastNames()))))
+            || (firstOrLastName.equalsIgnoreCase(listCustomers.get(i).getLastNames()))))
           j = i;
       }
       throw new CustomerNotFoundException("El cliente no fue encontrado por el nombre o apellido introducido. ");
@@ -117,21 +122,26 @@ public class RegisterManager {
 
   /**
    * Buscar Cliente
+   * 
    * @apiNote
-   * Busca un cliente exacto y lo devuelve.
-   * Primero comprueba si el indice del cliente existe con el metodo "Buscar Indice del Cliente"
-   * a partir del nombre o apellido completo y exacto.
-   * Analiza los casos de retorno del metodo "Buscar Indice del Cliente" y si el cliente existe retorna dicho cliente,
-   * de lo contrario lanza la excepcion CustomerNotFoundException o la excepcion ListCustomersNotFoundException.
+   *          Busca un cliente exacto y lo devuelve.
+   *          Primero comprueba si el indice del cliente existe con el metodo
+   *          "Buscar Indice del Cliente"
+   *          a partir del nombre o apellido completo y exacto.
+   *          Analiza los casos de retorno del metodo "Buscar Indice del Cliente"
+   *          y si el cliente existe retorna dicho cliente,
+   *          de lo contrario lanza la excepcion CustomerNotFoundException o la
+   *          excepcion ListCustomersNotFoundException.
    * @param firstOrLastName
-   * Nombre o Apellido Completo del cliente.
+   *                        Nombre o Apellido Completo del cliente.
    * @return
-   * Un cliente de tipo de objeto Customer.
+   *         Un cliente de tipo de objeto Customer.
    */
-  public Customer searchCustomer(String firstOrLastName) throws CustomerNotFoundException, ListCustomersNotFoundException {                  //Tengo dudas aqui
+  public Customer searchCustomer(String firstOrLastName)
+      throws CustomerNotFoundException, ListCustomersNotFoundException { // Tengo dudas aqui
     int x = searchIndexCustomer(firstOrLastName);
     Customer customer = null;
-    switch(x) {
+    switch (x) {
       case -1:
         throw new ListCustomersNotFoundException(" La lista de clientes no fue encontrada");
       default:
@@ -142,23 +152,26 @@ public class RegisterManager {
 
   /**
    * Eliminar Cliente
+   * 
    * @param docNumber
    * @param docType
    * @apiNote
-   * Elimina un cliente de la lista
+   *          Elimina un cliente de la lista
    */
-  public void removeCustomer(String docNumber, DocType docType) throws CustomerNotFoundException{
-    if(existID(docNumber, docType)) {
-      IntStream.range(0, listCustomers.size()).filter(i -> (docNumber.equalsIgnoreCase(listCustomers.get(i).getDocNumber())
-              && (docType == (listCustomers.get(i).getDocType())))).forEach(i -> listCustomers.remove(i));
-    }
-    else {
+  public void removeCustomer(String docNumber, DocType docType) throws CustomerNotFoundException {
+    if (existID(docNumber, docType)) {
+      IntStream.range(0, listCustomers.size())
+          .filter(i -> (docNumber.equalsIgnoreCase(listCustomers.get(i).getDocNumber())
+              && (docType == (listCustomers.get(i).getDocType()))))
+          .forEach(i -> listCustomers.remove(i));
+    } else {
       throw new CustomerNotFoundException("Cliente no fue encontrado.");
     }
   }
 
   /**
    * Actualizar Cliente
+   * 
    * @param costumer
    * @param firstNames
    * @param lastNames
@@ -171,7 +184,7 @@ public class RegisterManager {
    *          actualizarlo.
    */
   public void updateClient(Customer costumer, String firstNames, String lastNames, DocType docType, String docNumber,
-      LocalDate birthDate)throws CustomerNotFoundException, ListCustomersNotFoundException {
+      LocalDate birthDate) throws CustomerNotFoundException, ListCustomersNotFoundException {
     costumer.setFirstNames(firstNames);
     costumer.setLastNames(lastNames);
     costumer.setDocNumber(docNumber);
@@ -195,7 +208,11 @@ public class RegisterManager {
    *          de un numero de documento; respecto a dicho cliente).
    */
   public List<Customer> filterList(String keywords) {
-    return filterCustomerByKeyword(keywords);
+    List<Customer> filteredCustomers = new ArrayList<>();
+    String[] keywordsList = keywords.split(" ");
+    for (String keyword : keywordsList)
+      filteredCustomers.addAll(filterCustomerByKeyword(keyword));
+    return filteredCustomers;
   }
 
   public List<Customer> filterCustomerByKeyword(String keyword) {
