@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import com.sergio.RegisterApp.controller.Commands;
@@ -42,9 +41,6 @@ public class CustomerInfoFrame extends JFrame {
     gbc.insets = new Insets(0, 1, 10, 1);
     JLabel infoTitle = new JLabel("Datos del cliente", SwingConstants.LEFT);
     infoTitle.setFont(new Font("Arial", Font.BOLD, 14));
-  private void initComponents() {
-    gbc.insets = new Insets(2, 2, 2, 2);
-    JLabel infoTitle = new JLabel("Datos del cliente", SwingConstants.CENTER);
     gbc.gridx = 0;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     gbc.gridy = 0;
@@ -107,13 +103,10 @@ public class CustomerInfoFrame extends JFrame {
     add(infoAge, gbc);
 
     JButton updateButton = new JButton("Actualizar");
-    JButton deleteButton = new JButton("Eliminar");
+    deleteButton = new JButton("Eliminar");
     gbc.ipady = 2;
     gbc.ipadx = 4;
     gbc.gridx = 0;
-    gbc.gridy = 13;
-    JButton updateButton = new JButton("Acualizar");
-    deleteButton = new JButton("Eliminar");
     gbc.gridy = 12;
     add(updateButton, gbc);
     gbc.gridx = 1;
