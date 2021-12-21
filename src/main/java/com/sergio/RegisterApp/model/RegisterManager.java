@@ -134,7 +134,7 @@ public class RegisterManager {
     costumer.setDocType(docType);
     costumer.setBirthDate(birthDate);
   }
-
+//
   /**
    * Filtrar Lista
    * 
