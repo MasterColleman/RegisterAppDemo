@@ -172,22 +172,16 @@ public class Customer {
    *          actual
    * 
    **/
-  private int age(String birthDateIn) {
-    String date = "1999-10-03"; // aqui seria String date = this.getBirthDay();
+  public int getAge(String birthDateIn) {
     LocalDate today = LocalDate.now();
-    LocalDate birth = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault()));
-    Period age = birth.until(today);// Aqui se calcularia la edad
+    LocalDate birth = LocalDate.parse(birthDateIn, DateTimeFormatter.ofPattern("yyyy/MM/dd", Locale.getDefault()));
+    Period age = birth.until(today);
     return age.getYears();
-    /*
-     * System.out.printf("%s %d %s %d %s %d %s\n",
-     * "Tengo",
-     * age.getYears(),"años,",age.getMonths(),"meses,",age.getDays(),"días");
-     */
   }
 
   public String validateLegalAge() {
     String legalAge = "Valida";
-    if (this.age(getBirthDate()) < 18) {
+    if (this.getAge(getBirthDate()) < 18) {
       legalAge = "Invalida";
     }
     return legalAge;
