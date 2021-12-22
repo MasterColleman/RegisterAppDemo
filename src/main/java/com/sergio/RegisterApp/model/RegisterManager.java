@@ -169,7 +169,7 @@ public class RegisterManager {
       for (Customer element : listCustomers) {
         if (element.getDocNumber().equalsIgnoreCase(docNumber) && element.getDocType() == docType) {
           listCustomers.remove(element);
-          fileController.removeFile(docNumber);
+          fileController.removeFile(docNumber, docType.toString());
           return;
         }
       }
