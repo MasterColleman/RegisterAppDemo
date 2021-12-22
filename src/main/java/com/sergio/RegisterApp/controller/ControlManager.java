@@ -29,9 +29,7 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
     public void actionPerformed(ActionEvent event) {
         if (event.getActionCommand().equals("add")) addCostumer();
         if (event.getActionCommand().equals("added")) addedCostumer();
-        if (Commands.valueOf(event.getActionCommand()) == Commands.C_REMOVE_CUSTOMER) {
-            removeCustomer();
-        }
+        if (event.getActionCommand().equals("remove")) removeCustomer();
     }
 
     private void removeCustomer() {
