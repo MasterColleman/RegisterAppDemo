@@ -51,7 +51,7 @@ public class AddFrame extends JFrame {
     public Customer getCustomer() throws DoctypeInvalidException {
         if (txtNames.getText().isEmpty() || txtLastNames.getText().isEmpty() || txtDocument.getText()
                 .isEmpty() || datePicker.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Faltan informacion por ingresar para poder registrar al cliente", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Faltan informacion por ingresar para poder registrar al cliente", "Error: Campos Incompletos", JOptionPane.ERROR_MESSAGE);
             return null;
         } else {
             DocType docType = null;

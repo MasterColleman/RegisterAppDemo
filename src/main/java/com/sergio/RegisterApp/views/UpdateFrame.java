@@ -30,7 +30,7 @@ public class UpdateFrame extends JFrame {
 
     public UpdateFrame(ActionListener aListener) {
         this.setTitle("Actualizar Cliente");
-        this.setSize(400 , 400);
+        this.setSize(360 , 400);
         this.setLocationRelativeTo(null);
         this.setLayout(new GridBagLayout());
         this.setResizable(false);
@@ -47,7 +47,7 @@ public class UpdateFrame extends JFrame {
     public Customer updateCustomer() throws DoctypeInvalidException {
         if (txtNames.getText().isEmpty() || txtLastNames.getText().isEmpty() || txtDocument.getText()
                 .isEmpty() || datePicker.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Faltan informacion por ingresar para poder registrar al cliente", "Error: Campos Incompletos", JOptionPane.ERROR_MESSAGE);
             return null;
         } else {
             DocType docType = null;
@@ -57,38 +57,40 @@ public class UpdateFrame extends JFrame {
                 }
             }
             Customer cust = new Customer(txtNames.getText(), txtLastNames.getText(), docType, txtDocument.getText(),
-                                         datePicker.getDate());
+                    datePicker.getDate());
             if (cust.validateDocNumber(cust.getDocNumber(), cust.getDocType()).equalsIgnoreCase("Valido")) {
                 if (cust.validateFullName(cust.getLastNames()).equalsIgnoreCase("Valido")) {
                     if (cust.validateFullName(cust.getFirstNames()).equalsIgnoreCase("Valido")) {
                         if (cust.validateLegalAge().equalsIgnoreCase("Valida")) {
                             return cust;
-                        } else JOptionPane.showMessageDialog(null, "Edad No Legal", "Error", JOptionPane.ERROR_MESSAGE);
+                        } else JOptionPane.showMessageDialog(null, "La persona que desea ingresar no posee la edad legal para ser cliente", "Error: Cliente no mayor de Edad", JOptionPane.ERROR_MESSAGE);
                     } else if (cust.validateFullName(cust.getFirstNames()).equalsIgnoreCase("Error 2")) {
                         JOptionPane.showMessageDialog(null, "Los caracteres del nombre deben ser unicamente letras",
-                                                      "Error", JOptionPane.ERROR_MESSAGE);
+                                "Error: Caracteres no Alfabeticos",
+                                JOptionPane.ERROR_MESSAGE);
                     } else JOptionPane.showMessageDialog(null,
-                                                         "Nombre excede el limite o es inferior al minimo de " + "caracteres",
-                                                         "Error", JOptionPane.ERROR_MESSAGE);
+                            "Nombre excede el limite o es inferior al minimo de " + "caracteres [3,30]",
+                            "Error: Limite de Caracteres", JOptionPane.ERROR_MESSAGE);
                 } else if (cust.validateFullName(cust.getLastNames()).equalsIgnoreCase("Error 2")) {
                     JOptionPane.showMessageDialog(null, "Los caracteres  del apellido deben ser unicamente letras",
-                                                  "Error", JOptionPane.ERROR_MESSAGE);
+                            "Error: Caracteres no Alfabeticos",
+                            JOptionPane.ERROR_MESSAGE);
                 } else JOptionPane.showMessageDialog(null,
-                                                     "Apellido excede el limite o es inferior al minimo " + "caracteres",
-                                                     "Error", JOptionPane.ERROR_MESSAGE);
+                        "Apellido excede el limite o es inferior al minimo de" + "caracteres [3,30]",
+                        "Error: Limite de Caracteres", JOptionPane.ERROR_MESSAGE);
             } else if (cust.validateDocNumber(cust.getDocNumber(), cust.getDocType()).equalsIgnoreCase("Error 3")) {
                 JOptionPane.showMessageDialog(null, "El numero de documento no es valido porque contiene letras",
-                                              "Error", JOptionPane.ERROR_MESSAGE);
-            } else JOptionPane.showMessageDialog(null, "El documento no es valido", "Error", JOptionPane.ERROR_MESSAGE);
-
+                        "Error: Tipo de ID no corresponde a No. de ID", JOptionPane.ERROR_MESSAGE);
+            } else JOptionPane.showMessageDialog(null, "El documento no es valido, por que es inferior o superior a la cantidad de caracteres numericos permitidos [8,20]", "Error: Limite de Caracteres", JOptionPane.ERROR_MESSAGE);
         }
-        throw new DoctypeInvalidException(" ");
+        throw new DoctypeInvalidException("Tipo de Documento Invalido");
     }
 
     private void posicionateComponents() {
+
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.ipady   = 10;
-        gbc.ipadx   = 60;
+        gbc.ipady = 10;
+        gbc.ipadx = 70;
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 3;
@@ -133,10 +135,10 @@ public class UpdateFrame extends JFrame {
     }
 
     private void initComponents(ActionListener aListener) {
-        // initialize all components
-        lblTitle = new JLabel("Actualizar Cliente existente");
+
+        lblTitle = new JLabel("Actualizar Cliente");
         lblTitle.setFont(new Font("Arial", Font.BOLD, 14));
-        lblTitle.setHorizontalAlignment(JLabel.LEFT);
+        lblTitle.setHorizontalAlignment(SwingConstants.LEFT);
         lblNames = new JLabel("*Nombres");
         lblNames.setHorizontalAlignment(JLabel.CENTER);
         lblLastNames = new JLabel("*Apellidos");
@@ -147,14 +149,14 @@ public class UpdateFrame extends JFrame {
         lblDocument.setHorizontalAlignment(JLabel.CENTER);
         lblBirth = new JLabel("*Fecha de Nacimiento");
         lblBirth.setHorizontalAlignment(JLabel.CENTER);
-        lblRequired = new JLabel("* Todos los datos se deben completar o no se actualizara el cliente");
-        lblRequired.setText("<html><p style='color:red;'>* Todos los datos se deben completar o no se actualizara el cliente</p></html>");
-
+        lblRequired = new JLabel("* Se deben completar todos los campos nuevamente para actualizar el cliente");
+        lblRequired.setText("<html><p style='color:red;'>* Se deben completar todos los campos nuevamente para actualizar el cliente</p></html>");
 
         txtNames = new JTextField();
         txtLastNames = new JTextField();
         txtDocument = new JTextField();
         datePicker = new DatePicker();
+        //txtAge = new JTextField();
         cmbTypeDoc = new JComboBox<>();
 
         btnSave = new JButton("Actualizar");
