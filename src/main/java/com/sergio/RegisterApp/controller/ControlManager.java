@@ -1,13 +1,17 @@
 package com.sergio.RegisterApp.controller;
 
 import com.sergio.RegisterApp.exceptions.CustomerIDAlreadyExistException;
+import com.sergio.RegisterApp.exceptions.CustomerNotFoundException;
 import com.sergio.RegisterApp.exceptions.DoctypeInvalidException;
+import com.sergio.RegisterApp.exceptions.ListCustomersNotFoundException;
 import com.sergio.RegisterApp.model.Customer;
 import com.sergio.RegisterApp.model.RegisterManager;
 import com.sergio.RegisterApp.views.PrincipalWindow;
 
 import java.awt.event.*;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * ControlManager
@@ -31,10 +35,30 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
         if (event.getActionCommand().equals("added")) addedCostumer();
         if (event.getActionCommand().equals("remove")) removeCustomer();
         if (event.getActionCommand().equals("update")) updateCustomer();
+        if (event.getActionCommand().equals("updated")) updatedCostumer();
+    }
+
+    private void updatedCostumer() {
+        Customer customer = null;
+        try {
+            Customer customerToUpdate = registerManager.searchCustomerByDoc(principalWindow.getSelectedCustomerID(),
+                                                                            principalWindow.getSelectedCustomerDocType());
+            customer = principalWindow.getUpdatedCustomer();
+            registerManager.updateClient(customerToUpdate, customer.getFirstNames(), customer.getLastNames(),
+                                         customer.getDocType(), customer.getDocNumber(),
+                                         LocalDate.parse(customer.getBirthDate(),
+                                                         DateTimeFormatter.ofPattern("yyy/MM/dd")));
+
+            principalWindow.showSuccessMessage("Customer updated successfully");
+            principalWindow.closeUpdateWindow();
+            principalWindow.setCustomers(registerManager.getListCustomers());
+        } catch (DoctypeInvalidException | ListCustomersNotFoundException | CustomerNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateCustomer() {
-        
+        principalWindow.openUpdateFrame(this);
     }
 
     private void removeCustomer() {
