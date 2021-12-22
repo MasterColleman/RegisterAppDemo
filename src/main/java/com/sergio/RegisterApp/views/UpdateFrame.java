@@ -137,7 +137,7 @@ public class UpdateFrame extends JFrame {
 
         private void initComponents (ActionListener aListener){
             // initialize all components
-            lblTitle = new JLabel("*Agregar Registro");
+            lblTitle = new JLabel("Actualizar Registro");
             lblTitle.setHorizontalAlignment(JLabel.CENTER);
             lblNames = new JLabel("*Nombres");
             lblNames.setHorizontalAlignment(JLabel.CENTER);
@@ -149,7 +149,7 @@ public class UpdateFrame extends JFrame {
             lblDocument.setHorizontalAlignment(JLabel.CENTER);
             lblBirth = new JLabel("*Fecha de Nacimiento");
             lblBirth.setHorizontalAlignment(JLabel.CENTER);
-            lblRequired = new JLabel("* Todos los datos se deben completar o no se agregara el cliente");
+            lblRequired = new JLabel("* Todos los datos se deben completar o no se actualizara el cliente");
 
 
             txtNames = new JTextField();
@@ -159,9 +159,9 @@ public class UpdateFrame extends JFrame {
             txtAge = new JTextField();
             cmbTypeDoc = new JComboBox<>();
 
-            btnSave = new JButton("Agregar");
+            btnSave = new JButton("Actualizar");
             btnSave.addActionListener(aListener);
-            btnSave.setActionCommand("added");
+            btnSave.setActionCommand("updated");
             initCmbBox();
         }
 

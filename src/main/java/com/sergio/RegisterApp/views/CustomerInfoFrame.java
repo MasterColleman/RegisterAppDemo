@@ -102,12 +102,12 @@ public class CustomerInfoFrame extends JFrame {
     add(infoAge, gbc);
 
     JButton updateButton = new JButton("Actualizar");
-    JButton deleteButton = new JButton("Eliminar");
+    deleteButton = new JButton("Eliminar");
     gbc.ipady = 2;
     gbc.ipadx = 4;
     gbc.gridx = 0;
-    gbc.gridy = 13;
 
+    gbc.gridy = 13;
     add(updateButton, gbc);
     gbc.gridx = 1;
     gbc.gridy = 13;
