@@ -169,6 +169,7 @@ public class PrincipalWindow extends JFrame {
     }
 
     public void closeUpdateWindow() {
+        customerInfoFrame.dispose();
         updateFrame.dispose();
     }
 }
