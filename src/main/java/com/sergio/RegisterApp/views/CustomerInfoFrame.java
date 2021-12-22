@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import com.sergio.RegisterApp.controller.Commands;
 import com.sergio.RegisterApp.model.Customer;
 
 public class CustomerInfoFrame extends JFrame {
@@ -107,12 +106,13 @@ public class CustomerInfoFrame extends JFrame {
     gbc.ipady = 2;
     gbc.ipadx = 4;
     gbc.gridx = 0;
-    gbc.gridy = 12;
+
+    gbc.gridy = 13;
     add(updateButton, gbc);
     gbc.gridx = 1;
     gbc.gridy = 13;
     deleteButton.addActionListener(aListener);
-    deleteButton.setActionCommand(Commands.C_REMOVE_CUSTOMER.toString());
+    deleteButton.setActionCommand("remove");
     add(deleteButton, gbc);
   }
 }
