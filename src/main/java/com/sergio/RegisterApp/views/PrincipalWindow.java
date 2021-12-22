@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -24,20 +25,21 @@ public class PrincipalWindow extends JFrame {
     private ArrayList<String> columnNames;
 
     private CustomerInfoFrame customerInfoFrame;
+    private AddFrame addFrame;
 
 
-    public PrincipalWindow(KeyListener kListener, MouseListener mListener) {
+    public PrincipalWindow(KeyListener kListener, MouseListener mListener, ActionListener aListener) {
         setTitle("Sergio Suárez - 201912254");
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
         this.setLayout(new GridBagLayout());
-        initComponents(kListener, mListener);
+        initComponents(kListener, mListener, aListener);
         setVisible(true);
     }
 
-    private void initComponents(KeyListener kListener, MouseListener mListener) {
+    private void initComponents(KeyListener kListener, MouseListener mListener, ActionListener aListener) {
         txtSearch = new JTextField();
         txtSearch.addKeyListener(kListener);
         btnSearch = new JButton("Buscar");
@@ -46,7 +48,10 @@ public class PrincipalWindow extends JFrame {
         table = new JTable(tableModel);
         scrollPane = new JScrollPane(table);
         btnAdd = new JButton("Agregar");
+        btnAdd.addActionListener(aListener);
+        btnAdd.setActionCommand("add");
 
+        addFrame = new AddFrame(aListener);
         initTable(mListener);
         posicionateComponents();
     }
@@ -124,4 +129,19 @@ public class PrincipalWindow extends JFrame {
         customerInfoFrame = new CustomerInfoFrame(customer);
     }
 
+    public void openAddFrame() {
+        addFrame.setVisible(true);
+    }
+
+
+    public Customer getCustomer() throws DoctypeInvalidException {
+        return addFrame.getCustomer();
+    }
+
+    public void showSuccessMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Exito", JOptionPane.INFORMATION_MESSAGE);}
+
+    public void closeAddWindow() {
+        addFrame.dispose();
+    }
 }

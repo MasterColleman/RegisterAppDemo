@@ -88,7 +88,7 @@ public class RegisterManager {
    */
   public boolean existID(String docNumber, DocType docType) {
     return listCustomers.stream()
-        .noneMatch(customer -> docNumber.equalsIgnoreCase(customer.getDocNumber()) && customer.getDocType() == docType);
+        .anyMatch(customer -> docNumber.equalsIgnoreCase(customer.getDocNumber()) && customer.getDocType() == docType);
   }
 
   /**
