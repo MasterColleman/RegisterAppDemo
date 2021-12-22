@@ -94,8 +94,8 @@ public class Customer {
     int maxChars = 30, minChars = 3;
     String text, name = "Valido";
     char c = 0;
-    if ((firstOrLastName != null) || (firstOrLastName.length() <= maxChars)
-        || firstOrLastName.length() >= minChars) {
+    if ((firstOrLastName != null) && (firstOrLastName.length() <= maxChars)
+        && firstOrLastName.length() >= minChars) {
       text = firstOrLastName.toUpperCase();
       for (int i = 0; i < text.length(); i++) {
         c = text.charAt(i);
@@ -132,9 +132,9 @@ public class Customer {
     int maxChars = 20, minChars = 8;
     String number = "Valido";
     char c = 0;
-    if ((docTypeNumber != null) || (docTypeNumber.length() <= maxChars)
-        || docTypeNumber.length() >= minChars) {
-      if (!docType.equals("PAP")) {
+    if ((docTypeNumber != null) && (docTypeNumber.length() <= maxChars)
+        && docTypeNumber.length() >= minChars) {
+      if (!docType.getDocType().equalsIgnoreCase("PAP")) {
         for (int i = 0; i < docTypeNumber.length(); i++) {
           c = docTypeNumber.charAt(i);
           if (!((c >= '0' && c <= '9'))) {
