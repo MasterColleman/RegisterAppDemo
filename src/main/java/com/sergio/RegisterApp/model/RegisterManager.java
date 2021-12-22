@@ -150,6 +150,13 @@ public class RegisterManager {
     return customer;
   }
 
+  public Customer searchCustomerByDoc(String docNumber, DocType docType){
+    return listCustomers.stream()
+        .filter(customer -> docNumber.equalsIgnoreCase(customer.getDocNumber()) && customer.getDocType() == docType)
+        .findFirst()
+        .orElse(null);
+  }
+
   /**
    * Eliminar Cliente
    * 
