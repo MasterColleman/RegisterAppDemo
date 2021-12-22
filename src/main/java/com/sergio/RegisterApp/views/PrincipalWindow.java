@@ -17,7 +17,7 @@ import java.util.List;
 
 public class PrincipalWindow extends JFrame {
     private JTextField txtSearch;
-    private JButton btnSearch;
+    private JLabel btnSearch;
     private JTable table;
     private JScrollPane scrollPane;
     private TableModel tableModel;
@@ -27,6 +27,8 @@ public class PrincipalWindow extends JFrame {
     private CustomerInfoFrame customerInfoFrame;
     private AddFrame addFrame;
     private UpdateFrame updateFrame;
+
+    private JLabel lblSergio;
 
 
     public PrincipalWindow(KeyListener kListener, MouseListener mListener, ActionListener aListener) {
@@ -43,9 +45,13 @@ public class PrincipalWindow extends JFrame {
 
     private void posicionateComponents() {
         GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        add(lblSergio, gbc);
+        gbc.gridwidth = 1;
         gbc.gridx = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         gbc.weightx = .8;
         gbc.insets = new Insets(10, 10, 10, 10);
         add(txtSearch, gbc);
@@ -75,7 +81,7 @@ public class PrincipalWindow extends JFrame {
     private void initComponents(KeyListener kListener, MouseListener mListener, ActionListener aListener) {
         txtSearch = new JTextField();
         txtSearch.addKeyListener(kListener);
-        btnSearch = new JButton("Buscar");
+        btnSearch = new JLabel("Filtrar");
 
         tableModel = new DefaultTableModel();
         table = new JTable(tableModel);
@@ -83,6 +89,7 @@ public class PrincipalWindow extends JFrame {
         btnAdd = new JButton("Agregar");
         btnAdd.addActionListener(aListener);
         btnAdd.setActionCommand("add");
+        lblSergio = new JLabel("REGISTER APP");
 
         addFrame = new AddFrame(aListener);
         updateFrame = new UpdateFrame(aListener);
@@ -171,5 +178,9 @@ public class PrincipalWindow extends JFrame {
     public void closeUpdateWindow() {
         customerInfoFrame.dispose();
         updateFrame.dispose();
+    }
+
+    public void showErrorMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 }

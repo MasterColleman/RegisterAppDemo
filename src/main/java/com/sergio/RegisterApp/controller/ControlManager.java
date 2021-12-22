@@ -52,8 +52,8 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
             principalWindow.showSuccessMessage("Customer updated successfully");
             principalWindow.closeUpdateWindow();
             principalWindow.setCustomers(registerManager.getListCustomers());
-        } catch (DoctypeInvalidException | ListCustomersNotFoundException | CustomerNotFoundException e) {
-            e.printStackTrace();
+        } catch (DoctypeInvalidException | ListCustomersNotFoundException | CustomerNotFoundException | IOException e) {
+            principalWindow.showErrorMessage(e.getMessage());
         }
     }
 
@@ -69,7 +69,7 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
                                            principalWindow.getSelectedCustomerDocType());
             principalWindow.closeCustomerInfoFrame();
         } catch (Exception e) {
-            System.err.println(e);
+            principalWindow.showErrorMessage(e.getMessage());
         }
         principalWindow.setCustomers(registerManager.getListCustomers());
     }
@@ -79,7 +79,7 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
             registerManager.loadCustomers();
             principalWindow.setCustomers(registerManager.getListCustomers());
         } catch (Exception e) {
-            System.err.println(e);
+            principalWindow.showErrorMessage(e.getMessage());
         }
     }
 
@@ -110,7 +110,7 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
                 sendCustomerToView(registerManager.searchCustomerByDoc(principalWindow.getSelectedCustomerID(),
                                                                        principalWindow.getSelectedCustomerDocType()));
             } catch (DoctypeInvalidException ex) {
-                ex.printStackTrace();
+                principalWindow.showErrorMessage(ex.getMessage());
             }
         }
     }
@@ -149,7 +149,7 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
             principalWindow.closeAddWindow();
             principalWindow.setCustomers(registerManager.getListCustomers());
         } catch (DoctypeInvalidException | CustomerIDAlreadyExistException | IOException e) {
-            e.printStackTrace();
+            principalWindow.showErrorMessage(e.getMessage());
         }
     }
 
