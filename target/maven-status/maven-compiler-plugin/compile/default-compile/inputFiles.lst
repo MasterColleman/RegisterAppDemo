@@ -8,4 +8,5 @@
 /home/nojipiz/Downloads/RegisterAppDemo/src/main/java/com/sergio/RegisterApp/model/RegisterManager.java
 /home/nojipiz/Downloads/RegisterAppDemo/src/main/java/com/sergio/RegisterApp/persistence/FileController.java
 /home/nojipiz/Downloads/RegisterAppDemo/src/main/java/com/sergio/RegisterApp/exceptions/ListCustomersNotFoundException.java
+/home/nojipiz/Downloads/RegisterAppDemo/src/main/java/com/sergio/RegisterApp/exceptions/DoctypeInvalidException.java
 /home/nojipiz/Downloads/RegisterAppDemo/src/main/java/com/sergio/RegisterApp/views/CustomerInfoFrame.java
