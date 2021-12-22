@@ -34,7 +34,7 @@ public class AddFrame extends JFrame {
 
     public AddFrame(ActionListener aListener) {
         this.setTitle("Agregar Registro");
-        this.setSize(550, 550);
+        this.setSize(400, 400);
         this.setLocationRelativeTo(null);
         this.setLayout(new GridBagLayout());
         this.setResizable(false);
@@ -62,114 +62,117 @@ public class AddFrame extends JFrame {
             }
             Customer cust = new Customer(txtNames.getText(), txtLastNames.getText(), docType, txtDocument.getText(),
                                          datePicker.getDate());
-            if (cust.validateDocNumber(cust.getDocNumber(), cust.getDocType()).equalsIgnoreCase("valido")) {
-                if (cust.validateFullName(cust.getLastNames()).equalsIgnoreCase("valido")) {
-                    if (cust.validateFullName(cust.getFirstNames()).equalsIgnoreCase("valido")) {
-                        if (cust.validateLegalAge().equalsIgnoreCase("valida")) {
-
+            if (cust.validateDocNumber(cust.getDocNumber(), cust.getDocType()).equalsIgnoreCase("Valido")) {
+                if (cust.validateFullName(cust.getLastNames()).equalsIgnoreCase("Valido")) {
+                    if (cust.validateFullName(cust.getFirstNames()).equalsIgnoreCase("Valido")) {
+                        if (cust.validateLegalAge().equalsIgnoreCase("Valida")) {
                             return cust;
-                        } else {
-                            JOptionPane.showMessageDialog(
-                                    null, "Edad No Legal", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(
-                                null, "Nombre excede los 30 caractere", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(
-                            null, "Apellido excede los 30 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "El documento no es valido", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+                        } else JOptionPane.showMessageDialog(null, "Edad No Legal", "Error", JOptionPane.ERROR_MESSAGE);
+                    } else if (cust.validateFullName(cust.getFirstNames()).equalsIgnoreCase("Error 2")) {
+                        JOptionPane.showMessageDialog(null, "Los caracteres del nombre deben ser unicamente letras",
+                                                      "Error",
+                                                      JOptionPane.ERROR_MESSAGE);
+                    } else JOptionPane.showMessageDialog(null,
+                                                         "Nombre excede el limite o es inferior al minimo de " + "caracteres",
+                                                         "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (cust.validateFullName(cust.getLastNames()).equalsIgnoreCase("Error 2")) {
+                    JOptionPane.showMessageDialog(null, "Los caracteres  del apellido deben ser unicamente letras",
+                                                  "Error",
+                                                  JOptionPane.ERROR_MESSAGE);
+                } else JOptionPane.showMessageDialog(null,
+                                                     "Apellido excede el limite o es inferior al minimo " + "caracteres",
+                                                     "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (cust.validateDocNumber(cust.getDocNumber(), cust.getDocType()).equalsIgnoreCase("Error 3")) {
+                JOptionPane.showMessageDialog(null, "El numero de documento no es valido porque contiene letras",
+                                              "Error", JOptionPane.ERROR_MESSAGE);
+            } else JOptionPane.showMessageDialog(null, "El documento no es valido", "Error", JOptionPane.ERROR_MESSAGE);
         }
         throw new DoctypeInvalidException(" ");
     }
 
-        private void posicionateComponents () {
-            GridBagConstraints gbc = new GridBagConstraints();
+    private void posicionateComponents() {
 
-            gbc.gridx = 0;
-            gbc.gridy = 0;
-            gbc.gridwidth = 3;
-            gbc.gridheight = 1;
-            gbc.fill = GridBagConstraints.HORIZONTAL;
-            gbc.anchor = GridBagConstraints.CENTER;
-            gbc.insets = new Insets(5, 20, 50, 20);
-            this.add(lblTitle, gbc);
-            gbc.insets = new Insets(5, 20, 5, 20);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.ipady = 10;
+        gbc.ipadx = 60;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 3;
+        gbc.gridheight = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.CENTER;
+        this.add(lblTitle, gbc);
 
-            gbc.gridy = 1;
-            this.add(txtNames, gbc);
-            gbc.gridy = 2;
-            this.add(lblNames, gbc);
-            gbc.gridy = 3;
-            this.add(txtLastNames, gbc);
-            gbc.gridy = 4;
-            this.add(lblLastNames, gbc);
-            gbc.gridy = 5;
-            gbc.gridwidth = 1;
-            this.add(cmbTypeDoc, gbc);
-            gbc.gridx = 1;
-            gbc.gridwidth = 2;
-            this.add(txtDocument, gbc);
-            gbc.gridy = 6;
-            this.add(lblDocument, gbc);
-            gbc.gridx = 0;
-            gbc.gridwidth = 1;
-            this.add(typeDoc, gbc);
-            gbc.gridy = 7;
-            gbc.gridwidth = 3;
-            gbc.insets = new Insets(20, 100, 5, 100);
-            this.add(datePicker, gbc);
-            gbc.gridx = 0;
-            gbc.gridy = 8;
-            gbc.gridwidth = 3;
-            this.add(lblBirth, gbc);
-            gbc.gridx = 0;
-            gbc.gridy = 9;
-            gbc.gridwidth = 2;
-            gbc.insets = new Insets(20, 5, 5, 20);
-            this.add(lblRequired, gbc);
-            gbc.gridx = 2;
-            gbc.gridwidth = 1;
-            this.add(btnSave, gbc);
-        }
-
-        private void initComponents (ActionListener aListener){
-            // initialize all components
-            lblTitle = new JLabel("*Agregar Registro");
-            lblTitle.setHorizontalAlignment(JLabel.CENTER);
-            lblNames = new JLabel("*Nombres");
-            lblNames.setHorizontalAlignment(JLabel.CENTER);
-            lblLastNames = new JLabel("*Apellidos");
-            lblLastNames.setHorizontalAlignment(JLabel.CENTER);
-            typeDoc = new JLabel("*Tipo de Documento");
-            typeDoc.setHorizontalAlignment(JLabel.CENTER);
-            lblDocument = new JLabel("*Documento");
-            lblDocument.setHorizontalAlignment(JLabel.CENTER);
-            lblBirth = new JLabel("*Fecha de Nacimiento");
-            lblBirth.setHorizontalAlignment(JLabel.CENTER);
-            lblRequired = new JLabel("* Todos los datos se deben completar o no se agregara el cliente");
-
-
-            txtNames = new JTextField();
-            txtLastNames = new JTextField();
-            txtDocument = new JTextField();
-            datePicker = new DatePicker();
-            txtAge = new JTextField();
-            cmbTypeDoc = new JComboBox<>();
-
-            btnSave = new JButton("Agregar");
-            btnSave.addActionListener(aListener);
-            btnSave.setActionCommand("added");
-            initCmbBox();
-        }
-
-        private void initCmbBox () {
-            ComboBoxModel<String> model = new DefaultComboBoxModel<>(
-                    Arrays.stream(DocType.values()).map(DocType::getDocType).toArray(String[]::new));
-            cmbTypeDoc.setModel(model);
-        }
+        gbc.gridy = 1;
+        this.add(txtNames, gbc);
+        gbc.gridy = 2;
+        this.add(lblNames, gbc);
+        gbc.gridy = 3;
+        this.add(txtLastNames, gbc);
+        gbc.gridy = 4;
+        this.add(lblLastNames, gbc);
+        gbc.gridy = 5;
+        gbc.gridwidth = 1;
+        this.add(cmbTypeDoc, gbc);
+        gbc.gridx = 1;
+        gbc.gridwidth = 2;
+        this.add(txtDocument, gbc);
+        gbc.gridy = 6;
+        this.add(lblDocument, gbc);
+        gbc.gridx = 0;
+        gbc.gridwidth = 1;
+        this.add(typeDoc, gbc);
+        gbc.gridy = 7;
+        gbc.gridwidth = 3;
+        this.add(datePicker, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        gbc.gridwidth = 3;
+        this.add(lblBirth, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 9;
+        gbc.gridwidth = 2;
+        this.add(lblRequired, gbc);
+        gbc.gridx = 2;
+        gbc.gridwidth = 1;
+        this.add(btnSave, gbc);
     }
+
+    private void initComponents(ActionListener aListener) {
+        // initialize all components
+        lblTitle = new JLabel("Agregar Cliente inexistente");
+        lblTitle.setFont(new Font("Arial", Font.BOLD, 14));
+        lblTitle.setHorizontalAlignment(SwingConstants.LEFT);
+        lblNames = new JLabel("*Nombres");
+        lblNames.setHorizontalAlignment(JLabel.CENTER);
+        lblLastNames = new JLabel("*Apellidos");
+        lblLastNames.setHorizontalAlignment(JLabel.CENTER);
+        typeDoc = new JLabel("*Tipo de Documento");
+        typeDoc.setHorizontalAlignment(JLabel.CENTER);
+        lblDocument = new JLabel("*Documento");
+        lblDocument.setHorizontalAlignment(JLabel.CENTER);
+        lblBirth = new JLabel("*Fecha de Nacimiento");
+        lblBirth.setHorizontalAlignment(JLabel.CENTER);
+        lblRequired = new JLabel("* Todos los datos se deben completar o no se agregara el cliente");
+        lblRequired.setText("<html><p style='color:red;'>* Todos los datos se deben completar o no se agregara el cliente</p></html>");
+
+
+        txtNames = new JTextField();
+        txtLastNames = new JTextField();
+        txtDocument = new JTextField();
+        datePicker = new DatePicker();
+        txtAge = new JTextField();
+        cmbTypeDoc = new JComboBox<>();
+
+        btnSave = new JButton("Agregar");
+        btnSave.addActionListener(aListener);
+        btnSave.setActionCommand("added");
+        initCmbBox();
+    }
+
+    private void initCmbBox() {
+        ComboBoxModel<String> model = new DefaultComboBoxModel<>(
+                Arrays.stream(DocType.values()).map(DocType::getDocType).toArray(String[]::new));
+        cmbTypeDoc.setModel(model);
+    }
+}

@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import com.sergio.RegisterApp.exceptions.CustomerIDAlreadyExistException;
 import com.sergio.RegisterApp.exceptions.CustomerNotFoundException;
@@ -181,7 +180,7 @@ public class RegisterManager {
   /**
    * Actualizar Cliente
    * 
-   * @param costumer
+   * @param customer
    * @param firstNames
    * @param lastNames
    * @param docType
@@ -192,13 +191,15 @@ public class RegisterManager {
    *          lista) y le setea nuevamente todos los atributos al objeto, para
    *          actualizarlo.
    */
-  public void updateClient(Customer costumer, String firstNames, String lastNames, DocType docType, String docNumber,
-      LocalDate birthDate) throws CustomerNotFoundException, ListCustomersNotFoundException {
-    costumer.setFirstNames(firstNames);
-    costumer.setLastNames(lastNames);
-    costumer.setDocNumber(docNumber);
-    costumer.setDocType(docType);
-    costumer.setBirthDate(birthDate);
+  public void updateClient(Customer customer, String firstNames, String lastNames, DocType docType, String docNumber,
+      LocalDate birthDate) throws CustomerNotFoundException, ListCustomersNotFoundException, IOException {
+    fileController.removeFile(customer.getDocNumber(), customer.getDocType().toString());
+    customer.setFirstNames(firstNames);
+    customer.setLastNames(lastNames);
+    customer.setDocNumber(docNumber);
+    customer.setDocType(docType);
+    customer.setBirthDate(birthDate);
+    fileController.writeFile(customer);
   }
 
   //
