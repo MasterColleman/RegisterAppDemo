@@ -21,7 +21,7 @@ public class CustomerInfoFrame extends JFrame {
 
   public CustomerInfoFrame(Customer customer) {
     this.customer = customer;
-    setTitle("Registro de usuarios");
+    setTitle("Informacion de usuario");
     setSize(300, 300);
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setLocationRelativeTo(null);

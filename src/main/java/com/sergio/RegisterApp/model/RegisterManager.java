@@ -4,16 +4,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.stream.Collectors;
-
 import java.util.stream.IntStream;
 
-import com.sergio.RegisterApp.exceptions.*;
-
 import com.sergio.RegisterApp.exceptions.CustomerIDAlreadyExistException;
-
+import com.sergio.RegisterApp.exceptions.CustomerNotFoundException;
+import com.sergio.RegisterApp.exceptions.ListCustomersNotFoundException;
 import com.sergio.RegisterApp.persistence.FileController;
 
 /**
@@ -215,11 +215,11 @@ public class RegisterManager {
    *          de un numero de documento; respecto a dicho cliente).
    */
   public List<Customer> filterList(String keywords) {
-    List<Customer> filteredCustomers = new ArrayList<>();
+    Set<Customer> filteredCustomers = new HashSet<>();
     String[] keywordsList = keywords.split(" ");
     for (String keyword : keywordsList)
       filteredCustomers.addAll(filterCustomerByKeyword(keyword));
-    return filteredCustomers;
+    return new ArrayList<Customer>(filteredCustomers);
   }
 
   public List<Customer> filterCustomerByKeyword(String keyword) {
