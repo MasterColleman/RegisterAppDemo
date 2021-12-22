@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.time.LocalDate;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import com.sergio.RegisterApp.model.Customer;
+import com.sergio.RegisterApp.model.DocType;
 
 public class CustomerInfoFrame extends JFrame {
 
@@ -21,7 +23,7 @@ public class CustomerInfoFrame extends JFrame {
     this.customer = customer;
     setTitle("Registro de usuarios");
     setSize(300, 300);
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setLocationRelativeTo(null);
     setResizable(false);
     this.setLayout(new GridBagLayout());
@@ -95,5 +97,9 @@ public class CustomerInfoFrame extends JFrame {
     add(updateButton, gbc);
     gbc.gridy = 13;
     add(deleteButton, gbc);
+  }
+
+  public static void main(String[] args) {
+    new CustomerInfoFrame(new Customer("Sergio", "Perez", DocType.citizenshipCard, "12345678", LocalDate.parse("1996-01-01")));
   }
 }

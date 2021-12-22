@@ -1,6 +1,7 @@
 package com.sergio.RegisterApp.controller;
 
 import com.sergio.RegisterApp.exceptions.CustomerIDAlreadyExistException;
+import com.sergio.RegisterApp.exceptions.DoctypeInvalidException;
 import com.sergio.RegisterApp.model.Customer;
 import com.sergio.RegisterApp.model.RegisterManager;
 import com.sergio.RegisterApp.views.PrincipalWindow;
@@ -59,12 +60,12 @@ public class ControlManager implements KeyListener, MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getClickCount() == 2) {
-            //            try {
-            //                sendCustomerToView(registerManager.searchCustomer(principalWindow.getSelectedCustomerID(),
-            //                                                                  principalWindow.getSelectedCustomerDocType()));
-            //            } catch (DoctypeInvalidException ex) {
-            //                ex.printStackTrace();
-            //            }
+            try {
+                sendCustomerToView(registerManager.searchCustomerByDoc(principalWindow.getSelectedCustomerID(),
+                                                                       principalWindow.getSelectedCustomerDocType()));
+            } catch (DoctypeInvalidException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 

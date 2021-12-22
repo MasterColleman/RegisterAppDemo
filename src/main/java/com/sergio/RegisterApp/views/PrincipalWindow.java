@@ -108,8 +108,8 @@ public class PrincipalWindow extends JFrame {
     }
 
 
-    public int getSelectedCustomerID() {
-        return (int) table.getValueAt(table.getSelectedRow(), 2);
+    public String getSelectedCustomerID() {
+        return String.valueOf(table.getValueAt(table.getSelectedRow(), 2));
     }
 
     public DocType getSelectedCustomerDocType() throws DoctypeInvalidException {
@@ -123,4 +123,5 @@ public class PrincipalWindow extends JFrame {
     public void setCustomer(Customer customer) {
         customerInfoFrame = new CustomerInfoFrame(customer);
     }
+
 }
