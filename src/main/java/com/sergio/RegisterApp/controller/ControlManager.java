@@ -49,7 +49,7 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
                                          LocalDate.parse(customer.getBirthDate(),
                                                          DateTimeFormatter.ofPattern("yyy/MM/dd")));
 
-            principalWindow.showSuccessMessage("Customer updated successfully");
+            principalWindow.showSuccessMessage("Cliente actualizado correctamente");
             principalWindow.closeUpdateWindow();
             principalWindow.setCustomers(registerManager.getListCustomers());
         } catch (DoctypeInvalidException | ListCustomersNotFoundException | CustomerNotFoundException | IOException e) {
@@ -145,7 +145,7 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
         try {
             customer = principalWindow.getCustomer();
             registerManager.addCustomer(customer);
-            principalWindow.showSuccessMessage("Customer added successfully");
+            principalWindow.showSuccessMessage("Cliente agregado correctamente");
             principalWindow.closeAddWindow();
             principalWindow.setCustomers(registerManager.getListCustomers());
         } catch (DoctypeInvalidException | CustomerIDAlreadyExistException | IOException e) {

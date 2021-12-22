@@ -34,7 +34,7 @@ public class AddFrame extends JFrame {
 
     public AddFrame(ActionListener aListener) {
         this.setTitle("Agregar Registro");
-        this.setSize(550, 550);
+        this.setSize(400, 400);
         this.setLocationRelativeTo(null);
         this.setLayout(new GridBagLayout());
         this.setResizable(false);
@@ -91,17 +91,17 @@ public class AddFrame extends JFrame {
     }
 
     private void posicionateComponents() {
-        GridBagConstraints gbc = new GridBagConstraints();
 
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.ipady = 10;
+        gbc.ipadx = 60;
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 3;
         gbc.gridheight = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(5, 20, 50, 20);
         this.add(lblTitle, gbc);
-        gbc.insets = new Insets(5, 20, 5, 20);
 
         gbc.gridy = 1;
         this.add(txtNames, gbc);
@@ -124,7 +124,6 @@ public class AddFrame extends JFrame {
         this.add(typeDoc, gbc);
         gbc.gridy = 7;
         gbc.gridwidth = 3;
-        gbc.insets = new Insets(20, 100, 5, 100);
         this.add(datePicker, gbc);
         gbc.gridx = 0;
         gbc.gridy = 8;
@@ -133,7 +132,6 @@ public class AddFrame extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 9;
         gbc.gridwidth = 2;
-        gbc.insets = new Insets(20, 5, 5, 20);
         this.add(lblRequired, gbc);
         gbc.gridx = 2;
         gbc.gridwidth = 1;
@@ -142,8 +140,9 @@ public class AddFrame extends JFrame {
 
     private void initComponents(ActionListener aListener) {
         // initialize all components
-        lblTitle = new JLabel("*Agregar Registro");
-        lblTitle.setHorizontalAlignment(JLabel.CENTER);
+        lblTitle = new JLabel("Agregar Cliente inexistente");
+        lblTitle.setFont(new Font("Arial", Font.BOLD, 14));
+        lblTitle.setHorizontalAlignment(SwingConstants.LEFT);
         lblNames = new JLabel("*Nombres");
         lblNames.setHorizontalAlignment(JLabel.CENTER);
         lblLastNames = new JLabel("*Apellidos");
@@ -155,6 +154,7 @@ public class AddFrame extends JFrame {
         lblBirth = new JLabel("*Fecha de Nacimiento");
         lblBirth.setHorizontalAlignment(JLabel.CENTER);
         lblRequired = new JLabel("* Todos los datos se deben completar o no se agregara el cliente");
+        lblRequired.setText("<html><p style='color:red;'>* Todos los datos se deben completar o no se agregara el cliente</p></html>");
 
 
         txtNames = new JTextField();
