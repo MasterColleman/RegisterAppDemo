@@ -1,18 +1,10 @@
-/**
- * 
- */
 package com.sergio.RegisterApp.model;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-//import javax.swing.DatePicker;
 
-/**
- * @author Sergio Suarez
- *
- */
 public class Customer {
 
   private String firstNames;
@@ -150,15 +142,16 @@ public class Customer {
 
   /**
    * Obtener Edad
-   * 
+   * @return Age
+   * Edad de la persona en años
+   * @param birthDateIn
+   * Fecha de nacimiento entrante de tipo String
    * @apiNote
-   *          Este metodo toma el objeto fecha dado por la libreria
-   *          LGoodDatePicker
-   *          lo convierte y formatea en un objeto LocalDate y posteriormente
+   *          Este metodo toma la fecha de nacimiento del cliente en String
+   *          lo convierte y formatea en LocalDate y posteriormente
    *          calcula la cantidad de años (edad) entre la fecha ingresada y la
-   *          fecha
-   *          actual
-   * 
+   *          fecha actual
+   *
    **/
   public int getAge(String birthDateIn) {
     LocalDate today = LocalDate.now();

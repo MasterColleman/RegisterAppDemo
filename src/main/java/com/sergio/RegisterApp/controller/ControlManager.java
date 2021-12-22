@@ -24,9 +24,7 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
     public ControlManager() throws IOException, CustomerIDAlreadyExistException {
         this.principalWindow = new PrincipalWindow(this, this, this);
         this.registerManager = new RegisterManager();
-        // provisional
         loadCustomers();
-
     }
 
     @Override
@@ -47,9 +45,9 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
             registerManager.updateClient(customerToUpdate, customer.getFirstNames(), customer.getLastNames(),
                                          customer.getDocType(), customer.getDocNumber(),
                                          LocalDate.parse(customer.getBirthDate(),
-                                                         DateTimeFormatter.ofPattern("yyy/MM/dd")));
+                                                         DateTimeFormatter.ofPattern("yyyy/MM/dd")));
 
-            principalWindow.showSuccessMessage("Cliente actualizado correctamente");
+            principalWindow.showSuccessMessage("Cliente actualizado exitosamente");
             principalWindow.closeUpdateWindow();
             principalWindow.setCustomers(registerManager.getListCustomers());
         } catch (DoctypeInvalidException | ListCustomersNotFoundException | CustomerNotFoundException | IOException e) {
@@ -90,12 +88,10 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
 
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-
     }
 
     @Override
@@ -121,22 +117,18 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
 
     @Override
     public void mousePressed(MouseEvent e) {
-
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
     }
 
 
@@ -145,7 +137,7 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
         try {
             customer = principalWindow.getCustomer();
             registerManager.addCustomer(customer);
-            principalWindow.showSuccessMessage("Cliente agregado correctamente");
+            principalWindow.showSuccessMessage("Cliente agregado exitosamente");
             principalWindow.closeAddWindow();
             principalWindow.setCustomers(registerManager.getListCustomers());
         } catch (DoctypeInvalidException | CustomerIDAlreadyExistException | IOException e) {

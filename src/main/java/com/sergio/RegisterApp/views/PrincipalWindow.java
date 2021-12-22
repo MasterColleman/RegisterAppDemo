@@ -23,17 +23,16 @@ public class PrincipalWindow extends JFrame {
     private TableModel tableModel;
     private JButton btnAdd;
     private ArrayList<String> columnNames;
-
     private CustomerInfoFrame customerInfoFrame;
     private AddFrame addFrame;
     private UpdateFrame updateFrame;
-
     private JLabel lblSergio;
+    private JLabel lblRegisterList;
 
 
     public PrincipalWindow(KeyListener kListener, MouseListener mListener, ActionListener aListener) {
         setTitle("Sergio Suárez - 201912254");
-        setSize(400, 400);
+        setSize(550, 630);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -45,18 +44,22 @@ public class PrincipalWindow extends JFrame {
 
     private void posicionateComponents() {
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.insets = new Insets(15, 15, 0, 15);
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         add(lblSergio, gbc);
+        gbc.insets = new Insets(50, 0, 5, 0);
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        add(lblRegisterList, gbc);
         gbc.gridwidth = 1;
         gbc.gridx = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridy = 1;
-        gbc.weightx = .8;
-        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.weightx = 1;
+        gbc.insets = new Insets(0, 20, 0,20 );
         add(txtSearch, gbc);
-        gbc.gridx++;
-        gbc.weightx = .2;
+        gbc.fill = GridBagConstraints.CENTER;
+        gbc.gridx = 1;
+        gbc.weightx = .001;
         add(btnSearch, gbc);
         gbc.gridx = 0;
         gbc.gridy++;
@@ -66,10 +69,11 @@ public class PrincipalWindow extends JFrame {
         add(scrollPane, gbc);
         gbc.gridx = 0;
         gbc.gridy++;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 0;
         gbc.weighty = 0;
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.EAST;
+        gbc.insets = new Insets(20, 0, 20,20 );
         add(btnAdd, gbc);
     }
 
@@ -79,18 +83,19 @@ public class PrincipalWindow extends JFrame {
 
 
     private void initComponents(KeyListener kListener, MouseListener mListener, ActionListener aListener) {
+        lblSergio = new JLabel("REGISTER APP");
+        lblSergio.setFont(new Font("Arial", Font.BOLD, 18));
         txtSearch = new JTextField();
         txtSearch.addKeyListener(kListener);
         btnSearch = new JLabel("Filtrar");
-
+        lblRegisterList = new JLabel("Lista de Registro");
+        lblRegisterList.setFont(new Font("Verdana", Font.PLAIN, 14));
         tableModel = new DefaultTableModel();
         table = new JTable(tableModel);
         scrollPane = new JScrollPane(table);
-        btnAdd = new JButton("Agregar");
+        btnAdd = new JButton("Registrar");
         btnAdd.addActionListener(aListener);
         btnAdd.setActionCommand("add");
-        lblSergio = new JLabel("REGISTER APP");
-
         addFrame = new AddFrame(aListener);
         updateFrame = new UpdateFrame(aListener);
         initTable(mListener);
@@ -99,7 +104,7 @@ public class PrincipalWindow extends JFrame {
 
 
     private void initTable(MouseListener mListener) {
-        columnNames = new ArrayList<>(List.of(new String[]{"Nombre", "Apellido", "Cedula", "Tipo", "Nacimiento"}));
+        columnNames = new ArrayList<>(List.of(new String[]{"Nombres", "Apellidos", "No. Doc.", "Tipo Doc.", "Fecha Nac."}));
         tableModel = new DefaultTableModel(columnNames.toArray(), 0);
         table.setModel(tableModel);
         table.addMouseListener(mListener);
@@ -112,8 +117,9 @@ public class PrincipalWindow extends JFrame {
     }
 
     public boolean showConfirmDialog() {
-        return (JOptionPane.showConfirmDialog(null, "Are you sure?", "WARNING",
-                                              JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION);
+        Object[] options = {"Si", "Cancelar"};
+        return (JOptionPane.showOptionDialog(null, "¿Desea eliminar este Cliente?", "Advertencia!",
+                                             JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0])==0);
     }
 
     public void closeCustomerInfoFrame() {
@@ -140,9 +146,8 @@ public class PrincipalWindow extends JFrame {
         return addFrame.getCustomer();
     }
 
-
     public void showSuccessMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Exito", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "Operacion Efectuada con Exito", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void closeAddWindow() {
@@ -172,7 +177,7 @@ public class PrincipalWindow extends JFrame {
     }
 
     public Customer getUpdatedCustomer() throws DoctypeInvalidException {
-        return updateFrame.getCustomer();
+        return updateFrame.updateCustomer();
     }
 
     public void closeUpdateWindow() {

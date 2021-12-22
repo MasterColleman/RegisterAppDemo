@@ -17,14 +17,12 @@ public class UpdateFrame extends JFrame {
     private JLabel typeDoc;
     private JLabel lblDocument;
     private JLabel lblBirth;
-    private JLabel lblAge;
     private JLabel lblRequired;
 
     private JTextField txtNames;
     private JTextField txtLastNames;
     private JTextField txtDocument;
     private DatePicker datePicker;
-    private JTextField txtAge;
     private JComboBox<String> cmbTypeDoc;
 
 
@@ -46,7 +44,7 @@ public class UpdateFrame extends JFrame {
         new UpdateFrame(null);
     }
 
-    public Customer getCustomer() throws DoctypeInvalidException {
+    public Customer updateCustomer() throws DoctypeInvalidException {
         if (txtNames.getText().isEmpty() || txtLastNames.getText().isEmpty() || txtDocument.getText()
                 .isEmpty() || datePicker.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Debe llenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -143,9 +141,9 @@ public class UpdateFrame extends JFrame {
         lblNames.setHorizontalAlignment(JLabel.CENTER);
         lblLastNames = new JLabel("*Apellidos");
         lblLastNames.setHorizontalAlignment(JLabel.CENTER);
-        typeDoc = new JLabel("*Tipo de Documento");
+        typeDoc = new JLabel("*Tipo de ID");
         typeDoc.setHorizontalAlignment(JLabel.CENTER);
-        lblDocument = new JLabel("*Documento");
+        lblDocument = new JLabel("*No. Documento");
         lblDocument.setHorizontalAlignment(JLabel.CENTER);
         lblBirth = new JLabel("*Fecha de Nacimiento");
         lblBirth.setHorizontalAlignment(JLabel.CENTER);
@@ -157,7 +155,6 @@ public class UpdateFrame extends JFrame {
         txtLastNames = new JTextField();
         txtDocument = new JTextField();
         datePicker = new DatePicker();
-        txtAge = new JTextField();
         cmbTypeDoc = new JComboBox<>();
 
         btnSave = new JButton("Actualizar");
