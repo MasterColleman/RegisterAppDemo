@@ -1,6 +1,5 @@
 package com.sergio.RegisterApp.views;
 
-
 import com.sergio.RegisterApp.exceptions.DoctypeInvalidException;
 import com.sergio.RegisterApp.model.Customer;
 import com.sergio.RegisterApp.model.DocType;
@@ -12,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,30 +39,6 @@ public class PrincipalWindow extends JFrame {
         setVisible(true);
     }
 
-    private void initComponents(KeyListener kListener, MouseListener mListener, ActionListener aListener) {
-        txtSearch = new JTextField();
-        txtSearch.addKeyListener(kListener);
-        btnSearch = new JButton("Buscar");
-
-        tableModel = new DefaultTableModel();
-        table = new JTable(tableModel);
-        scrollPane = new JScrollPane(table);
-        btnAdd = new JButton("Agregar");
-        btnAdd.addActionListener(aListener);
-        btnAdd.setActionCommand("add");
-
-        addFrame = new AddFrame(aListener);
-        initTable(mListener);
-        posicionateComponents();
-    }
-
-    private void initTable(MouseListener mListener) {
-        columnNames = new ArrayList<>(List.of(new String[]{"Nombre", "Apellido", "Cedula", "Tipo", "Nacimiento"}));
-        tableModel = new DefaultTableModel(columnNames.toArray(), 0);
-        table.setModel(tableModel);
-        table.addMouseListener(mListener);
-        table.setDefaultEditor(Object.class, null);
-    }
 
     private void posicionateComponents() {
         GridBagConstraints gbc = new GridBagConstraints();
@@ -94,6 +70,75 @@ public class PrincipalWindow extends JFrame {
         return txtSearch.getText();
     }
 
+
+    private void initComponents(KeyListener kListener, MouseListener mListener, ActionListener aListener) {
+        txtSearch = new JTextField();
+        txtSearch.addKeyListener(kListener);
+        btnSearch = new JButton("Buscar");
+
+        tableModel = new DefaultTableModel();
+        table = new JTable(tableModel);
+        scrollPane = new JScrollPane(table);
+        btnAdd = new JButton("Agregar");
+        btnAdd.addActionListener(aListener);
+        btnAdd.setActionCommand("add");
+
+        addFrame = new AddFrame(aListener);
+        initTable(mListener);
+        posicionateComponents();
+    }
+
+
+    private void initTable(MouseListener mListener) {
+        columnNames = new ArrayList<>(List.of(new String[]{"Nombre", "Apellido", "Cedula", "Tipo", "Nacimiento"}));
+        tableModel = new DefaultTableModel(columnNames.toArray(), 0);
+        table.setModel(tableModel);
+        table.addMouseListener(mListener);
+        table.setDefaultEditor(Object.class, null);
+    }
+
+
+    public void setCustomer(Customer customer, ActionListener aListener) {
+        customerInfoFrame = new CustomerInfoFrame(customer, aListener);
+    }
+
+    public boolean showConfirmDialog() {
+        return (JOptionPane.showConfirmDialog(null, "Are you sure?", "WARNING",
+                                              JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION);
+    }
+
+    public void closeCustomerInfoFrame() {
+        customerInfoFrame.dispatchEvent(new WindowEvent(customerInfoFrame, WindowEvent.WINDOW_CLOSING));
+    }
+
+    public String getSelectedCustomerID() {
+        return String.valueOf(table.getValueAt(table.getSelectedRow(), 2));
+    }
+
+    public DocType getSelectedCustomerDocType() throws DoctypeInvalidException {
+        String type = table.getValueAt(table.getSelectedRow(), 3).toString();
+        for (DocType docType : DocType.values()) {
+            if (docType.getDocType().equals(type)) return docType;
+        }
+        throw new DoctypeInvalidException();
+    }
+
+    public void openAddFrame() {
+        addFrame.setVisible(true);
+    }
+
+    public Customer getCustomer() throws DoctypeInvalidException {
+        return addFrame.getCustomer();
+    }
+
+    public void showSuccessMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Exito", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void closeAddWindow() {
+        addFrame.dispose();
+    }
+
     public void setCustomers(List<Customer> filterList) {
         System.out.println(filterList);
         Object[][] data = new Object[filterList.size()][columnNames.size()];
@@ -109,39 +154,5 @@ public class PrincipalWindow extends JFrame {
 
         table.getTableHeader().setReorderingAllowed(false);
         table.getTableHeader().setResizingAllowed(false);
-
-    }
-
-
-    public String getSelectedCustomerID() {
-        return String.valueOf(table.getValueAt(table.getSelectedRow(), 2));
-    }
-
-    public DocType getSelectedCustomerDocType() throws DoctypeInvalidException {
-        String type = table.getValueAt(table.getSelectedRow(), 3).toString();
-        for (DocType docType : DocType.values()) {
-            if (docType.getDocType().equals(type)) return docType;
-        }
-        throw new DoctypeInvalidException();
-    }
-
-    public void setCustomer(Customer customer) {
-        customerInfoFrame = new CustomerInfoFrame(customer);
-    }
-
-    public void openAddFrame() {
-        addFrame.setVisible(true);
-    }
-
-
-    public Customer getCustomer() throws DoctypeInvalidException {
-        return addFrame.getCustomer();
-    }
-
-    public void showSuccessMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Exito", JOptionPane.INFORMATION_MESSAGE);}
-
-    public void closeAddWindow() {
-        addFrame.dispose();
     }
 }

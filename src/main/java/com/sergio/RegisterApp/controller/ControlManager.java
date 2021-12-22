@@ -18,11 +18,33 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
 
 
     public ControlManager() throws IOException, CustomerIDAlreadyExistException {
-        this.principalWindow = new PrincipalWindow(this, this,this);
+        this.principalWindow = new PrincipalWindow(this, this, this);
         this.registerManager = new RegisterManager();
         // provisional
         loadCustomers();
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        if (event.getActionCommand().equals("add")) addCostumer();
+        if (event.getActionCommand().equals("added")) addedCostumer();
+        if (Commands.valueOf(event.getActionCommand()) == Commands.C_REMOVE_CUSTOMER) {
+            removeCustomer();
+        }
+    }
+
+    private void removeCustomer() {
+        try {
+            boolean confirm = principalWindow.showConfirmDialog();
+            if (!confirm) return;
+            registerManager.removeCustomer(principalWindow.getSelectedCustomerID(),
+                                           principalWindow.getSelectedCustomerDocType());
+            principalWindow.closeCustomerInfoFrame();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        principalWindow.setCustomers(registerManager.getListCustomers());
     }
 
     private void loadCustomers() {
@@ -67,7 +89,7 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
     }
 
     private void sendCustomerToView(Customer customer) {
-        principalWindow.setCustomer(customer);
+        principalWindow.setCustomer(customer, this);
     }
 
     @Override
@@ -90,16 +112,9 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
 
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("add"))
-            addCostumer();
-        if (e.getActionCommand().equals("added"))
-            addedCostumer();
-    }
 
     private void addedCostumer() {
-        Customer customer  = null;
+        Customer customer = null;
         try {
             customer = principalWindow.getCustomer();
             registerManager.addCustomer(customer);

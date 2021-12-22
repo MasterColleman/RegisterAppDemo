@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.sergio.RegisterApp.AppTest" time="0.038" tests="1" errors="0" skipped="0" failures="1">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.sergio.RegisterApp.AppTest" time="0.13" tests="2" errors="0" skipped="0" failures="1">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="CO"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-17-openjdk/lib"/>
-    <property name="sun.java.command" value="/home/nojipiz/Downloads/RegisterAppDemo/target/surefire/surefirebooter2250277964005944512.jar /home/nojipiz/Downloads/RegisterAppDemo/target/surefire 2021-12-21T18-01-17_275-jvmRun1 surefire12347965699622625770tmp surefire_03435757258954432251tmp"/>
+    <property name="sun.java.command" value="/home/nojipiz/Downloads/RegisterAppDemo/target/surefire/surefirebooter4026679822282597095.jar /home/nojipiz/Downloads/RegisterAppDemo/target/surefire 2021-12-21T19-13-51_354-jvmRun1 surefire14906254668053766898tmp surefire_015204537411384204219tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/nojipiz/Downloads/RegisterAppDemo/target/test-classes:/home/nojipiz/Downloads/RegisterAppDemo/target/classes:/home/nojipiz/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/nojipiz/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/nojipiz/.m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar:/home/nojipiz/.m2/repository/com/github/lgooddatepicker/LGoodDatePicker/11.2.1/LGoodDatePicker-11.2.1.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -27,7 +27,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="/home/nojipiz/Downloads/RegisterAppDemo/target/surefire/surefirebooter2250277964005944512.jar"/>
+    <property name="surefire.real.class.path" value="/home/nojipiz/Downloads/RegisterAppDemo/target/surefire/surefirebooter4026679822282597095.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.1+12"/>
     <property name="user.name" value="nojipiz"/>
@@ -51,12 +51,10 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="filesSaved" classname="com.sergio.RegisterApp.AppTest" time="0.008">
+  <testcase name="filesSaved" classname="com.sergio.RegisterApp.AppTest" time="0.076">
     <failure type="java.lang.AssertionError">java.lang.AssertionError
-	at com.sergio.RegisterApp.AppTest.filesSaved(AppTest.java:26)
+	at com.sergio.RegisterApp.AppTest.filesSaved(AppTest.java:27)
 </failure>
-    <system-out><![CDATA[100235482.customer
-100245645.customer
-]]></system-out>
   </testcase>
+  <testcase name="IsValidID" classname="com.sergio.RegisterApp.AppTest" time="0.006"/>
 </testsuite>

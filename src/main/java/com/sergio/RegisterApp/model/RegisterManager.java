@@ -67,7 +67,6 @@ public class RegisterManager {
     } else {
       throw new CustomerIDAlreadyExistException(
           "El Cliente ya existe en la Lista, por favor cambie el numero o tipo de documento"); // METER MENSAJE AQUI
-
     }
   }
 
@@ -150,7 +149,7 @@ public class RegisterManager {
     return customer;
   }
 
-  public Customer searchCustomerByDoc(String docNumber, DocType docType){
+  public Customer searchCustomerByDoc(String docNumber, DocType docType) {
     return listCustomers.stream()
         .filter(customer -> docNumber.equalsIgnoreCase(customer.getDocNumber()) && customer.getDocType() == docType)
         .findFirst()
@@ -167,10 +166,11 @@ public class RegisterManager {
    */
   public void removeCustomer(String docNumber, DocType docType) throws CustomerNotFoundException {
     if (existID(docNumber, docType)) {
-      IntStream.range(0, listCustomers.size())
+      IntStream.range(0, listCustomers.size() - 1)
           .filter(i -> (docNumber.equalsIgnoreCase(listCustomers.get(i).getDocNumber())
               && (docType == (listCustomers.get(i).getDocType()))))
           .forEach(i -> listCustomers.remove(i));
+      fileController.removeFile(docNumber);
     } else {
       throw new CustomerNotFoundException("Cliente no fue encontrado.");
     }

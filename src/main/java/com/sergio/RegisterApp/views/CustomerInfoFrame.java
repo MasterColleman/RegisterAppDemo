@@ -4,23 +4,27 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.time.LocalDate;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
+import com.sergio.RegisterApp.controller.Commands;
 import com.sergio.RegisterApp.model.Customer;
-import com.sergio.RegisterApp.model.DocType;
 
 public class CustomerInfoFrame extends JFrame {
 
   private GridBagConstraints gbc = new GridBagConstraints();
   private Customer customer;
+  private JButton deleteButton;
+  private ActionListener aListener;
 
-  public CustomerInfoFrame(Customer customer) {
+  public CustomerInfoFrame(Customer customer, ActionListener aListener) {
     this.customer = customer;
+    this.aListener = aListener;
     setTitle("Informacion de usuario");
     setSize(300, 300);
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -31,7 +35,7 @@ public class CustomerInfoFrame extends JFrame {
     setVisible(true);
   }
 
-  public void initComponents() {
+  private void initComponents() {
     gbc.insets = new Insets(2, 2, 2, 2);
     JLabel infoTitle = new JLabel("Datos del cliente", SwingConstants.CENTER);
     gbc.gridx = 0;
@@ -92,14 +96,12 @@ public class CustomerInfoFrame extends JFrame {
     add(infoAge, gbc);
 
     JButton updateButton = new JButton("Acualizar");
-    JButton deleteButton = new JButton("Eliminar");
+    deleteButton = new JButton("Eliminar");
     gbc.gridy = 12;
     add(updateButton, gbc);
     gbc.gridy = 13;
+    deleteButton.addActionListener(aListener);
+    deleteButton.setActionCommand(Commands.C_REMOVE_CUSTOMER.toString());
     add(deleteButton, gbc);
-  }
-
-  public static void main(String[] args) {
-    new CustomerInfoFrame(new Customer("Sergio", "Perez", DocType.citizenshipCard, "12345678", LocalDate.parse("1996-01-01")));
   }
 }
