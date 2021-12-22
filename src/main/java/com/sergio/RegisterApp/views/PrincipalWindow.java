@@ -5,6 +5,7 @@ import com.sergio.RegisterApp.model.Customer;
 import com.sergio.RegisterApp.model.DocType;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
@@ -55,7 +56,7 @@ public class PrincipalWindow extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridy = 1;
         gbc.weightx = 1;
-        gbc.insets = new Insets(0, 20, 0,20 );
+        gbc.insets = new Insets(0, 20, 0, 20);
         add(txtSearch, gbc);
         gbc.fill = GridBagConstraints.CENTER;
         gbc.gridx = 1;
@@ -73,7 +74,7 @@ public class PrincipalWindow extends JFrame {
         gbc.weighty = 0;
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.EAST;
-        gbc.insets = new Insets(20, 0, 20,20 );
+        gbc.insets = new Insets(20, 0, 20, 20);
         add(btnAdd, gbc);
     }
 
@@ -98,17 +99,28 @@ public class PrincipalWindow extends JFrame {
         btnAdd.setActionCommand("add");
         addFrame = new AddFrame(aListener);
         updateFrame = new UpdateFrame(aListener);
-        initTable(mListener);
         posicionateComponents();
+        initTable(mListener);
     }
 
 
     private void initTable(MouseListener mListener) {
-        columnNames = new ArrayList<>(List.of(new String[]{"Nombres", "Apellidos", "No. Doc.", "Tipo Doc.", "Fecha Nac."}));
+        columnNames = new ArrayList<>(
+                List.of(new String[]{"Nombres", "Apellidos", "No. Doc.", "Tipo Doc.", "Fecha Nac."}));
         tableModel = new DefaultTableModel(columnNames.toArray(), 0);
         table.setModel(tableModel);
         table.addMouseListener(mListener);
-        table.setDefaultEditor(Object.class, null);
+        //table.setDefaultEditor(Object.class, null);
+        table.getColumnModel().getColumn(3).setMinWidth(5);
+        table.getColumnModel().getColumn(4).setMaxWidth(5);
+        table.getColumnModel().getColumn(4).setPreferredWidth(5);
+        table.getColumnModel().getColumn(4).setWidth(5);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+        for (int x = 0; x < table.getColumnCount(); x++) {
+            table.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+        }
     }
 
 
@@ -119,7 +131,8 @@ public class PrincipalWindow extends JFrame {
     public boolean showConfirmDialog() {
         Object[] options = {"Si", "Cancelar"};
         return (JOptionPane.showOptionDialog(null, "¿Desea eliminar este Cliente?", "Advertencia!",
-                                             JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0])==0);
+                                             JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options,
+                                             options[0]) == 0);
     }
 
     public void closeCustomerInfoFrame() {
@@ -168,7 +181,24 @@ public class PrincipalWindow extends JFrame {
         table.setModel(tableModel);
 
         table.getTableHeader().setReorderingAllowed(false);
-        table.getTableHeader().setResizingAllowed(false);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+        for (int x = 0; x < table.getColumnCount(); x++) {
+            table.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+        }
+        //center values in table
+        DefaultTableCellRenderer centerRenderer2 = new DefaultTableCellRenderer();
+        centerRenderer2.setHorizontalAlignment(JLabel.CENTER);
+        for (int x = 0; x < table.getColumnCount(); x++) {
+            table.getColumnModel().getColumn(x).setCellRenderer( centerRenderer2 );
+
+        }
+        // set column width to 5px
+        table.getColumnModel().getColumn(3).setMinWidth(80);
+        table.getColumnModel().getColumn(3).setMaxWidth(80);
+        table.getColumnModel().getColumn(3).setPreferredWidth(80);
+
     }
 
     public void openUpdateFrame(ActionListener aListener) {
