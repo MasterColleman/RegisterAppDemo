@@ -21,7 +21,7 @@ public class CustomerInfoFrame extends JFrame {
 
   public CustomerInfoFrame(Customer customer) {
     this.customer = customer;
-    setTitle("Informacion de usuario");
+    setTitle("Informacion");
     setSize(300, 300);
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setLocationRelativeTo(null);
@@ -32,14 +32,20 @@ public class CustomerInfoFrame extends JFrame {
   }
 
   public void initComponents() {
-    gbc.insets = new Insets(2, 2, 2, 2);
-    JLabel infoTitle = new JLabel("Datos del cliente", SwingConstants.CENTER);
+    gbc.ipadx = 30;
+    gbc.ipady = 3;
+    gbc.insets = new Insets(0, 1, 10, 1);
+    JLabel infoTitle = new JLabel("Datos del cliente", SwingConstants.LEFT);
+    infoTitle.setFont(new Font("Arial", Font.BOLD, 14));
     gbc.gridx = 0;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     gbc.gridy = 0;
+    gbc.gridwidth = 2;
     add(infoTitle, gbc);
+
+    gbc.insets = new Insets(0, 1, 3, 1);
     JLabel firstNames = new JLabel(customer.getFirstNames(), SwingConstants.CENTER);
-    JLabel infoFirstName = new JLabel("Nombres Cliente", SwingConstants.CENTER);
+    JLabel infoFirstName = new JLabel("Nombres del Cliente", SwingConstants.CENTER);
     firstNames.setFont(new Font("Verdana", Font.PLAIN, 14));
     gbc.gridy = 2;
     gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -48,13 +54,14 @@ public class CustomerInfoFrame extends JFrame {
     add(infoFirstName, gbc);
 
     JLabel lastNames = new JLabel(customer.getLastNames(), SwingConstants.CENTER);
-    JLabel infoLastName = new JLabel("Apellidos Cliente", SwingConstants.CENTER);
+    JLabel infoLastName = new JLabel("Apellidos del Cliente", SwingConstants.CENTER);
     lastNames.setFont(new Font("Verdana", Font.PLAIN, 14));
     gbc.gridy = 5;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     add(lastNames, gbc);
     gbc.gridy = 6;
     add(infoLastName, gbc);
+    gbc.gridwidth = 1;
 
     JLabel documentType = new JLabel(customer.getDocType().getDocType(), SwingConstants.CENTER);
     documentType.setFont(new Font("Verdana", Font.PLAIN, 14));
@@ -91,10 +98,14 @@ public class CustomerInfoFrame extends JFrame {
     gbc.gridy = 11;
     add(infoAge, gbc);
 
-    JButton updateButton = new JButton("Acualizar");
+    JButton updateButton = new JButton("Actualizar");
     JButton deleteButton = new JButton("Eliminar");
-    gbc.gridy = 12;
+    gbc.ipady = 2;
+    gbc.ipadx = 4;
+    gbc.gridx = 0;
+    gbc.gridy = 13;
     add(updateButton, gbc);
+    gbc.gridx = 1;
     gbc.gridy = 13;
     add(deleteButton, gbc);
   }
