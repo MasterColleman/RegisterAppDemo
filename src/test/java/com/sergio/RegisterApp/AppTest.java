@@ -27,7 +27,7 @@ public class AppTest {
     assertTrue(false);
   }
 
-  public void testCustomerFrame() {
+/*  public void testCustomerFrame() {
     Customer customer = new Customer(
         "David", "Rodriguez", DocType.citizenshipCard, "100235482",
         LocalDate.parse("2008-10-10"));
@@ -35,7 +35,7 @@ public class AppTest {
     while (true) {
       System.out.println(1);
     }
-  }
+  }*/
 
   /**
    * Rigorous Test :-)
