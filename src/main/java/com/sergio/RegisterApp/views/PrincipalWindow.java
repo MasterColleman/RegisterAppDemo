@@ -26,6 +26,7 @@ public class PrincipalWindow extends JFrame {
 
     private CustomerInfoFrame customerInfoFrame;
     private AddFrame addFrame;
+    private UpdateFrame updateFrame;
 
 
     public PrincipalWindow(KeyListener kListener, MouseListener mListener, ActionListener aListener) {
@@ -84,6 +85,7 @@ public class PrincipalWindow extends JFrame {
         btnAdd.setActionCommand("add");
 
         addFrame = new AddFrame(aListener);
+        updateFrame = new UpdateFrame(aListener);
         initTable(mListener);
         posicionateComponents();
     }
@@ -131,6 +133,7 @@ public class PrincipalWindow extends JFrame {
         return addFrame.getCustomer();
     }
 
+
     public void showSuccessMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "Exito", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -154,5 +157,18 @@ public class PrincipalWindow extends JFrame {
 
         table.getTableHeader().setReorderingAllowed(false);
         table.getTableHeader().setResizingAllowed(false);
+    }
+
+    public void openUpdateFrame(ActionListener aListener) {
+        updateFrame = new UpdateFrame(aListener);
+        updateFrame.setVisible(true);
+    }
+
+    public Customer getUpdatedCustomer() throws DoctypeInvalidException {
+        return updateFrame.getCustomer();
+    }
+
+    public void closeUpdateWindow() {
+        updateFrame.dispose();
     }
 }

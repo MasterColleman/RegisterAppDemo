@@ -108,6 +108,8 @@ public class CustomerInfoFrame extends JFrame {
     gbc.gridx = 0;
 
     gbc.gridy = 13;
+    updateButton.addActionListener(aListener);
+    updateButton.setActionCommand("update");
     add(updateButton, gbc);
     gbc.gridx = 1;
     gbc.gridy = 13;
