@@ -40,12 +40,12 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
         Customer customer = null;
         try {
             Customer customerToUpdate = registerManager.searchCustomerByDoc(principalWindow.getSelectedCustomerID(),
-                                                                            principalWindow.getSelectedCustomerDocType());
+                    principalWindow.getSelectedCustomerDocType());
             customer = principalWindow.getUpdatedCustomer();
             registerManager.updateClient(customerToUpdate, customer.getFirstNames(), customer.getLastNames(),
-                                         customer.getDocType(), customer.getDocNumber(),
-                                         LocalDate.parse(customer.getBirthDate(),
-                                                         DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+                    customer.getDocType(), customer.getDocNumber(),
+                    LocalDate.parse(customer.getBirthDate(),
+                            DateTimeFormatter.ofPattern("yyyy/MM/dd")));
 
             principalWindow.showSuccessMessage("Cliente actualizado exitosamente");
             principalWindow.closeUpdateWindow();
@@ -64,7 +64,7 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
             boolean confirm = principalWindow.showConfirmDialog();
             if (!confirm) return;
             registerManager.removeCustomer(principalWindow.getSelectedCustomerID(),
-                                           principalWindow.getSelectedCustomerDocType());
+                    principalWindow.getSelectedCustomerDocType());
             principalWindow.closeCustomerInfoFrame();
         } catch (Exception e) {
             principalWindow.showErrorMessage(e.getMessage());
@@ -104,7 +104,7 @@ public class ControlManager implements KeyListener, MouseListener, ActionListene
         if (e.getClickCount() == 2) {
             try {
                 sendCustomerToView(registerManager.searchCustomerByDoc(principalWindow.getSelectedCustomerID(),
-                                                                       principalWindow.getSelectedCustomerDocType()));
+                        principalWindow.getSelectedCustomerDocType()));
             } catch (DoctypeInvalidException ex) {
                 principalWindow.showErrorMessage(ex.getMessage());
             }

@@ -12,49 +12,49 @@ import com.sergio.RegisterApp.model.Customer;
 
 public class FileController {
 
-  private static final String PATH = "customers/";
-  private static final String EXTENSION = ".customer";
+    private static final String PATH = "customers/";
+    private static final String EXTENSION = ".customer";
 
-  public Customer readFile(String fileName) throws FileNotFoundException {
-    File file = new File(PATH + fileName + EXTENSION);
-    Scanner scanner = new Scanner(file);
-    StringBuilder jsonCustomer = new StringBuilder();
-    while (scanner.hasNextLine()) {
-      jsonCustomer.append(scanner.nextLine());
+    public Customer readFile(String fileName) throws FileNotFoundException {
+        File file = new File(PATH + fileName + EXTENSION);
+        Scanner scanner = new Scanner(file);
+        StringBuilder jsonCustomer = new StringBuilder();
+        while (scanner.hasNextLine()) {
+            jsonCustomer.append(scanner.nextLine());
+        }
+        scanner.close();
+        return jsonToObject(jsonCustomer.toString());
     }
-    scanner.close();
-    return jsonToObject(jsonCustomer.toString());
-  }
 
-  public void removeFile(String customerId, String customerDocType) {
-    new File(PATH + customerId + customerDocType + EXTENSION).delete();
-  }
-
-  public void writeFile(Customer customer) throws IOException {
-    FileWriter writer = new FileWriter(PATH + customer.getDocNumber() + customer.getDocType().toString() + EXTENSION);
-    String jsonCostumer = objectToJson(customer);
-    writer.write(jsonCostumer);
-    writer.close();
-  }
-
-  public ArrayList<Customer> getAllCustomersSaved() throws FileNotFoundException {
-    ArrayList<Customer> savedCustomers = new ArrayList<Customer>();
-    String[] fileList = new File(PATH).list();
-    for (String fullFileName : fileList) {
-      if (!fullFileName.contains(EXTENSION))
-        continue;
-      String fileName = fullFileName.replace(EXTENSION, "");
-      savedCustomers.add(readFile(fileName));
+    public void removeFile(String customerId, String customerDocType) {
+        new File(PATH + customerId + customerDocType + EXTENSION).delete();
     }
-    return savedCustomers;
-  }
 
-  public String objectToJson(Customer customer) {
-    return new Gson().toJson(customer);
-  }
+    public void writeFile(Customer customer) throws IOException {
+        FileWriter writer = new FileWriter(PATH + customer.getDocNumber() + customer.getDocType().toString() + EXTENSION);
+        String jsonCostumer = objectToJson(customer);
+        writer.write(jsonCostumer);
+        writer.close();
+    }
 
-  public Customer jsonToObject(String json) {
-    return new Gson().fromJson(json, Customer.class);
-  }
+    public ArrayList<Customer> getAllCustomersSaved() throws FileNotFoundException {
+        ArrayList<Customer> savedCustomers = new ArrayList<Customer>();
+        String[] fileList = new File(PATH).list();
+        for (String fullFileName : fileList) {
+            if (!fullFileName.contains(EXTENSION))
+                continue;
+            String fileName = fullFileName.replace(EXTENSION, "");
+            savedCustomers.add(readFile(fileName));
+        }
+        return savedCustomers;
+    }
+
+    public String objectToJson(Customer customer) {
+        return new Gson().toJson(customer);
+    }
+
+    public Customer jsonToObject(String json) {
+        return new Gson().fromJson(json, Customer.class);
+    }
 
 }

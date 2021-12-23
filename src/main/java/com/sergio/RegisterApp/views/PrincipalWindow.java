@@ -33,7 +33,7 @@ public class PrincipalWindow extends JFrame {
 
     public PrincipalWindow(KeyListener kListener, MouseListener mListener, ActionListener aListener) {
         setTitle("Sergio Suárez - 201912254");
-        setSize(550, 630);
+        setSize(630, 670);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -103,24 +103,13 @@ public class PrincipalWindow extends JFrame {
         initTable(mListener);
     }
 
-
     private void initTable(MouseListener mListener) {
         columnNames = new ArrayList<>(
-                List.of(new String[]{"Nombres", "Apellidos", "No. Doc.", "Tipo Doc.", "Fecha Nac."}));
+                List.of(new String[]{"Nombres", "Apellidos", "No. Documento", "Tipo ID", "Fecha Nac."}));
         tableModel = new DefaultTableModel(columnNames.toArray(), 0);
         table.setModel(tableModel);
         table.addMouseListener(mListener);
-        //table.setDefaultEditor(Object.class, null);
-        table.getColumnModel().getColumn(3).setMinWidth(5);
-        table.getColumnModel().getColumn(4).setMaxWidth(5);
-        table.getColumnModel().getColumn(4).setPreferredWidth(5);
-        table.getColumnModel().getColumn(4).setWidth(5);
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-
-        for (int x = 0; x < table.getColumnCount(); x++) {
-            table.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
-        }
+        table.setDefaultEditor(Object.class, null);
     }
 
 
@@ -131,8 +120,8 @@ public class PrincipalWindow extends JFrame {
     public boolean showConfirmDialog() {
         Object[] options = {"Si", "Cancelar"};
         return (JOptionPane.showOptionDialog(null, "¿Desea eliminar este Cliente?", "Advertencia!",
-                                             JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options,
-                                             options[0]) == 0);
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options,
+                options[0]) == 0);
     }
 
     public void closeCustomerInfoFrame() {
@@ -185,20 +174,20 @@ public class PrincipalWindow extends JFrame {
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
         for (int x = 0; x < table.getColumnCount(); x++) {
-            table.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+            table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         }
         //center values in table
         DefaultTableCellRenderer centerRenderer2 = new DefaultTableCellRenderer();
         centerRenderer2.setHorizontalAlignment(JLabel.CENTER);
         for (int x = 0; x < table.getColumnCount(); x++) {
-            table.getColumnModel().getColumn(x).setCellRenderer( centerRenderer2 );
+            table.getColumnModel().getColumn(x).setCellRenderer(centerRenderer2);
 
         }
-        // set column width to 5px
-        table.getColumnModel().getColumn(3).setMinWidth(80);
-        table.getColumnModel().getColumn(3).setMaxWidth(80);
-        table.getColumnModel().getColumn(3).setPreferredWidth(80);
-
+        table.getColumnModel().getColumn(0).setMaxWidth(150);
+        table.getColumnModel().getColumn(1).setMaxWidth(150);
+        table.getColumnModel().getColumn(2).setMaxWidth(132);
+        table.getColumnModel().getColumn(3).setMaxWidth(60);
+        table.getColumnModel().getColumn(4).setMaxWidth(80);
     }
 
     public void openUpdateFrame(ActionListener aListener) {

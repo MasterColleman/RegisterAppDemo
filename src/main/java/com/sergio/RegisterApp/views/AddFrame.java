@@ -5,12 +5,11 @@ import com.sergio.RegisterApp.exceptions.DoctypeInvalidException;
 import com.sergio.RegisterApp.model.Customer;
 import com.sergio.RegisterApp.model.DocType;
 
-import javax.print.Doc;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
-import java.util.stream.Collectors;
+
 
 public class AddFrame extends JFrame {
     private JLabel lblTitle;
@@ -61,33 +60,37 @@ public class AddFrame extends JFrame {
                 }
             }
             Customer cust = new Customer(txtNames.getText(), txtLastNames.getText(), docType, txtDocument.getText(),
-                                         datePicker.getDate());
+                    datePicker.getDate());
             if (cust.validateDocNumber(cust.getDocNumber(), cust.getDocType()).equalsIgnoreCase("Valido")) {
                 if (cust.validateFullName(cust.getLastNames()).equalsIgnoreCase("Valido")) {
                     if (cust.validateFullName(cust.getFirstNames()).equalsIgnoreCase("Valido")) {
                         if (cust.validateLegalAge().equalsIgnoreCase("Valida")) {
                             return cust;
-                        } else JOptionPane.showMessageDialog(null, "La persona que desea ingresar no posee la edad legal para ser cliente", "Error: Cliente no mayor de Edad", JOptionPane.ERROR_MESSAGE);
+                        } else if (cust.validateLegalAge().equalsIgnoreCase("Imposible")){
+                            JOptionPane.showMessageDialog(null, "No existen sesquicentenarios vivos al momento, introduzca una fecha de nacimiento real", "Error: Cliente supero las expectativas",JOptionPane.ERROR_MESSAGE);
+                        }else
+                            JOptionPane.showMessageDialog(null, "La persona que desea ingresar no posee la edad legal para ser cliente", "Error: Cliente no mayor de Edad", JOptionPane.ERROR_MESSAGE);
                     } else if (cust.validateFullName(cust.getFirstNames()).equalsIgnoreCase("Error 2")) {
                         JOptionPane.showMessageDialog(null, "Los caracteres del nombre deben ser unicamente letras",
-                                                      "Error: Caracteres no Alfabeticos",
-                                                      JOptionPane.ERROR_MESSAGE);
+                                "Error: Caracteres no Alfabeticos",
+                                JOptionPane.ERROR_MESSAGE);
                     } else JOptionPane.showMessageDialog(null,
-                                                         "Nombre excede el limite o es inferior al minimo de " + "caracteres [3,30]",
-                                                         "Error: Limite de Caracteres", JOptionPane.ERROR_MESSAGE);
+                            "Nombre excede el limite o es inferior al minimo de " + "caracteres [3,30]",
+                            "Error: Limite de Caracteres", JOptionPane.ERROR_MESSAGE);
                 } else if (cust.validateFullName(cust.getLastNames()).equalsIgnoreCase("Error 2")) {
                     JOptionPane.showMessageDialog(null, "Los caracteres  del apellido deben ser unicamente letras",
-                                                  "Error: Caracteres no Alfabeticos",
-                                                  JOptionPane.ERROR_MESSAGE);
+                            "Error: Caracteres no Alfabeticos",
+                            JOptionPane.ERROR_MESSAGE);
                 } else JOptionPane.showMessageDialog(null,
-                                                     "Apellido excede el limite o es inferior al minimo de" + "caracteres [3,30]",
-                                                     "Error: Limite de Caracteres", JOptionPane.ERROR_MESSAGE);
+                        "Apellido excede el limite o es inferior al minimo de" + "caracteres [3,30]",
+                        "Error: Limite de Caracteres", JOptionPane.ERROR_MESSAGE);
             } else if (cust.validateDocNumber(cust.getDocNumber(), cust.getDocType()).equalsIgnoreCase("Error 3")) {
                 JOptionPane.showMessageDialog(null, "El numero de documento no es valido porque contiene letras",
-                                              "Error: Tipo de ID no corresponde a No. de ID", JOptionPane.ERROR_MESSAGE);
-            } else JOptionPane.showMessageDialog(null, "El documento no es valido, por que es inferior o superior a la cantidad de caracteres numericos permitidos [8,20]", "Error: Limite de Caracteres", JOptionPane.ERROR_MESSAGE);
+                        "Error: Tipo de ID no corresponde a No. de ID", JOptionPane.ERROR_MESSAGE);
+            } else
+                JOptionPane.showMessageDialog(null, "El documento no es valido, por que es inferior o superior a la cantidad de caracteres numericos permitidos [8-20]", "Error: Limite de Caracteres", JOptionPane.ERROR_MESSAGE);
         }
-        throw new DoctypeInvalidException("Tipo de Documento Invalido");
+        throw new DoctypeInvalidException("Invalido");
     }
 
     private void posicionateComponents() {
