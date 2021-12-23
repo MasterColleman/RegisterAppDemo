@@ -29,8 +29,8 @@
 //
 ///*  public void testCustomerFrame() {
 //    Customer customer = new Customer(
-//        "David", "Rodriguez", DocType.citizenshipCard, "100235482",
-//        LocalDate.parse("2008-10-10"));
+//        "Sergio", "Suarez", DocType.citizenshipCard, "100235482",
+//        LocalDate.parse("205-03-10"));
 //    new CustomerInfoFrame(customer, null);
 //    while (true) {
 //      System.out.println(1);
@@ -42,8 +42,8 @@
 //   */
 //  public void fileControllerTest() {
 //    FileController fileController = new FileController();
-//    Customer customer = new Customer("David", "Rodriguez", DocType.citizenshipCard, "100235482",
-//        LocalDate.parse("2008-10-10"));
+//    Customer customer = new Customer("Sergio", "Suarez", DocType.citizenshipCard, "100235482",
+////        LocalDate.parse("205-03-10"));
 //    try {
 //      fileController.writeFile(customer);
 //      Customer anotherCustomer = fileController.readFile(customer.getDocNumber());
@@ -54,8 +54,8 @@
 //  }
 //
 //  public void RegisterCustomerTest() {
-//    Customer customer = new Customer("David", "Rodriguez", DocType.citizenshipCard, "100235482",
-//        LocalDate.parse("2008-10-10"));
+//    Customer customer = new Customer("Sergio", "Suarez", DocType.citizenshipCard, "100235482",
+////        LocalDate.parse("205-03-10"));
 //    RegisterManager manager = new RegisterManager();
 //    try {
 //      manager.addCustomer(customer);

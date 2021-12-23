@@ -10,7 +10,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
-
 public class AddFrame extends JFrame {
     private JLabel lblTitle;
     private JLabel lblNames;
@@ -28,16 +27,16 @@ public class AddFrame extends JFrame {
     private JTextField txtAge;
     private JComboBox<String> cmbTypeDoc;
 
-
     private JButton btnSave;
 
     public AddFrame(ActionListener aListener) {
         this.setTitle("Agregar Registro");
-        this.setSize(360, 400);
+        this.setSize(350, 370);
         this.setLocationRelativeTo(null);
         this.setLayout(new GridBagLayout());
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.getContentPane().setBackground(Color.decode("#F0FFF2"));
         initComponents(aListener);
         posicionateComponents();
         this.setVisible(false);
@@ -150,16 +149,22 @@ public class AddFrame extends JFrame {
         lblTitle.setHorizontalAlignment(SwingConstants.LEFT);
         lblNames = new JLabel("*Nombres");
         lblNames.setHorizontalAlignment(JLabel.CENTER);
+        lblNames.setFont(new Font("Arial", Font.BOLD, 12));
         lblLastNames = new JLabel("*Apellidos");
         lblLastNames.setHorizontalAlignment(JLabel.CENTER);
+        lblLastNames.setFont(new Font("Arial", Font.BOLD, 12));
         typeDoc = new JLabel("*Tipo de ID");
         typeDoc.setHorizontalAlignment(JLabel.CENTER);
+        typeDoc.setFont(new Font("Arial", Font.BOLD, 12));
         lblDocument = new JLabel("*No. Documento");
         lblDocument.setHorizontalAlignment(JLabel.CENTER);
+        lblDocument.setFont(new Font("Arial", Font.BOLD, 12));
         lblBirth = new JLabel("*Fecha de Nacimiento");
         lblBirth.setHorizontalAlignment(JLabel.CENTER);
+        lblBirth.setFont(new Font("Arial", Font.BOLD, 12));
         lblRequired = new JLabel("* Todos los datos se deben completar o no se agregara el cliente");
         lblRequired.setText("<html><p style='color:red;'>* Todos los datos se deben completar o no se agregara el cliente</p></html>");
+        lblRequired.setFont(new Font("Arial", Font.BOLD, 12));
 
         txtNames = new JTextField();
         txtLastNames = new JTextField();
@@ -169,6 +174,12 @@ public class AddFrame extends JFrame {
         cmbTypeDoc = new JComboBox<>();
 
         btnSave = new JButton("Agregar");
+        btnSave.setFont(new Font("Arial",Font.BOLD,14));
+        btnSave.setBackground(Color.decode("#BBEBC2"));
+        btnSave.setForeground(Color.decode("#1B5201"));
+        btnSave.setOpaque(true);
+        btnSave.setBorderPainted(false);
+
         btnSave.addActionListener(aListener);
         btnSave.setActionCommand("added");
         initCmbBox();

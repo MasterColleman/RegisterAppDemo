@@ -48,9 +48,8 @@ public class PrincipalWindow extends JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        // cambiar color de la ventana
-        this.getContentPane().setBackground(Color.decode("#dfe6f2"));
-
+        this.getContentPane().setBackground(Color.decode("#DDE9FF"));
+        this.setIconImage(new ImageIcon(getClass().getResource("/register_Icon.ico")).getImage());
     }
 
 
@@ -87,7 +86,7 @@ public class PrincipalWindow extends JFrame {
         gbc.anchor = GridBagConstraints.EAST;
         gbc.insets = new Insets(20, 0, 20, 20);
         add(btnAdd, gbc);
-        this.setIconImage(new ImageIcon(getClass().getResource("/register_Icon.ico")).getImage());
+
     }
 
     public String getKeywords() {
@@ -107,6 +106,10 @@ public class PrincipalWindow extends JFrame {
         table = new JTable(tableModel);
         scrollPane = new JScrollPane(table);
         btnAdd = new JButton("Registrar");
+        btnAdd.setFont(new Font("Arial",Font.BOLD,14));
+        btnAdd.setBackground(Color.decode("#BBEBC2"));
+        btnAdd.setForeground(Color.decode("#1B5201"));
+        btnAdd.setOpaque(true);
         btnAdd.addActionListener(aListener);
         btnAdd.setActionCommand("add");
         addFrame = new AddFrame(aListener);
@@ -122,10 +125,8 @@ public class PrincipalWindow extends JFrame {
         table.setModel(tableModel);
         table.addMouseListener(mListener);
         table.setDefaultEditor(Object.class, null);
-        table.setBackground(Color.WHITE);
-
-        // cambiar color de la tabla
-        scrollPane.getViewport().setBackground(Color.WHITE);
+        table.setBackground(Color.white);
+        scrollPane.getViewport().setBackground(Color.decode("#F6FCFF"));
     }
 
 

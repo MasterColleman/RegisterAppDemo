@@ -17,24 +17,26 @@ public class UpdateFrame extends JFrame {
     private JLabel typeDoc;
     private JLabel lblDocument;
     private JLabel lblBirth;
+    private JLabel lblAge;
     private JLabel lblRequired;
 
     private JTextField txtNames;
     private JTextField txtLastNames;
     private JTextField txtDocument;
     private DatePicker datePicker;
+    private JTextField txtAge;
     private JComboBox<String> cmbTypeDoc;
 
-
-    private JButton btnSave;
+    private JButton btnUpdate;
 
     public UpdateFrame(ActionListener aListener) {
         this.setTitle("Actualizar Cliente");
-        this.setSize(360, 400);
+        this.setSize(350, 360);
         this.setLocationRelativeTo(null);
         this.setLayout(new GridBagLayout());
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.getContentPane().setBackground(Color.decode("#FFFEF0"));
         initComponents(aListener);
         posicionateComponents();
         this.setVisible(false);
@@ -135,7 +137,7 @@ public class UpdateFrame extends JFrame {
         this.add(lblRequired, gbc);
         gbc.gridx = 2;
         gbc.gridwidth = 1;
-        this.add(btnSave, gbc);
+        this.add(btnUpdate, gbc);
         this.setIconImage(Toolkit.getDefaultToolkit().
                 getImage(ClassLoader.getSystemResource("register_Icon.ico")));
     }
@@ -147,26 +149,39 @@ public class UpdateFrame extends JFrame {
         lblTitle.setHorizontalAlignment(SwingConstants.LEFT);
         lblNames = new JLabel("*Nombres");
         lblNames.setHorizontalAlignment(JLabel.CENTER);
+        lblNames.setFont(new Font("Arial", Font.BOLD, 12));
         lblLastNames = new JLabel("*Apellidos");
         lblLastNames.setHorizontalAlignment(JLabel.CENTER);
+        lblLastNames.setFont(new Font("Arial", Font.BOLD, 12));
         typeDoc = new JLabel("*Tipo de ID");
         typeDoc.setHorizontalAlignment(JLabel.CENTER);
+        typeDoc.setFont(new Font("Arial", Font.BOLD, 12));
         lblDocument = new JLabel("*No. Documento");
         lblDocument.setHorizontalAlignment(JLabel.CENTER);
+        lblDocument.setFont(new Font("Arial", Font.BOLD, 12));
         lblBirth = new JLabel("*Fecha de Nacimiento");
         lblBirth.setHorizontalAlignment(JLabel.CENTER);
-        lblRequired = new JLabel();
-        lblRequired.setText("<html><p style='color:red;'>* Se deben completar todos los campos para actualizar al cliente</p></html>");
+        lblBirth.setFont(new Font("Arial", Font.BOLD, 12));
+        lblRequired = new JLabel("* Se deben completar todos los campos para actualizar el cliente");
+        lblRequired.setText("<html><p style='color:red;'>* Se deben completar todos los campos para actualizar el cliente</p></html>");
+        lblRequired.setFont(new Font("Arial", Font.BOLD, 12));
 
         txtNames = new JTextField();
         txtLastNames = new JTextField();
         txtDocument = new JTextField();
         datePicker = new DatePicker();
+        txtAge = new JTextField();
         cmbTypeDoc = new JComboBox<>();
 
-        btnSave = new JButton("Actualizar");
-        btnSave.addActionListener(aListener);
-        btnSave.setActionCommand("updated");
+        btnUpdate = new JButton("Actualizar");
+        btnUpdate.setFont(new Font("Arial",Font.BOLD,14));
+        btnUpdate.setBackground(Color.decode("#FFD47A"));
+        btnUpdate.setForeground(Color.decode("#9B4806"));
+        btnUpdate.setOpaque(true);
+        btnUpdate.setBorderPainted(false);
+
+        btnUpdate.addActionListener(aListener);
+        btnUpdate.setActionCommand("updated");
         initCmbBox();
     }
 

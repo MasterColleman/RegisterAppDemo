@@ -22,10 +22,11 @@ public class CustomerInfoFrame extends JFrame {
         this.customer = customer;
         setTitle("Informacion");
         this.aListener = aListener;
-        setSize(314, 340);
+        setSize(325, 340);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
+        this.getContentPane().setBackground(Color.decode("#F6FCFF"));
         this.setLayout(new GridBagLayout());
         initComponents();
         setVisible(true);
@@ -106,8 +107,18 @@ public class CustomerInfoFrame extends JFrame {
 
         gbc.insets = new Insets(10, 8, 7, 7);
         updateButton = new JButton("Actualizar");
-        deleteButton = new JButton("Eliminar");
+        updateButton.setFont(new Font("Arial",Font.BOLD,14));
+        updateButton.setBackground(Color.decode("#FFD47A"));
+        updateButton.setForeground(Color.decode("#9B4806"));
+        updateButton.setOpaque(true);
+        updateButton.setBorderPainted(false);
 
+        deleteButton = new JButton("Eliminar");
+        deleteButton.setFont(new Font("Arial",Font.BOLD,14));
+        deleteButton.setBackground(Color.decode("#FFB1B1"));
+        deleteButton.setForeground(Color.decode("#940D0D"));
+        deleteButton.setOpaque(true);
+        deleteButton.setBorderPainted(false);
         gbc.gridx = 0;
         gbc.gridy = 16;
 
