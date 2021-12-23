@@ -35,11 +35,22 @@ public class PrincipalWindow extends JFrame {
         setTitle("Sergio Suárez - 201912254");
         setSize(630, 670);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setIconImage(Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("register_Icon.ico")));
         setLocationRelativeTo(null);
         setResizable(false);
         this.setLayout(new GridBagLayout());
         initComponents(kListener, mListener, aListener);
+
         setVisible(true);
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+        // cambiar color de la ventana
+        this.getContentPane().setBackground(Color.decode("#dfe6f2"));
+
     }
 
 
@@ -76,6 +87,7 @@ public class PrincipalWindow extends JFrame {
         gbc.anchor = GridBagConstraints.EAST;
         gbc.insets = new Insets(20, 0, 20, 20);
         add(btnAdd, gbc);
+        this.setIconImage(new ImageIcon(getClass().getResource("/register_Icon.ico")).getImage());
     }
 
     public String getKeywords() {
@@ -110,6 +122,10 @@ public class PrincipalWindow extends JFrame {
         table.setModel(tableModel);
         table.addMouseListener(mListener);
         table.setDefaultEditor(Object.class, null);
+        table.setBackground(Color.WHITE);
+
+        // cambiar color de la tabla
+        scrollPane.getViewport().setBackground(Color.WHITE);
     }
 
 

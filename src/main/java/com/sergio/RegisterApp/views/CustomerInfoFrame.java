@@ -1,9 +1,6 @@
 package com.sergio.RegisterApp.views;
 
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -124,5 +121,7 @@ public class CustomerInfoFrame extends JFrame {
         deleteButton.addActionListener(aListener);
         deleteButton.setActionCommand("remove");
         add(deleteButton, gbc);
+        this.setIconImage(Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("register_Icon.ico")));
     }
 }

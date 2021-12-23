@@ -139,6 +139,8 @@ public class AddFrame extends JFrame {
         gbc.gridx = 2;
         gbc.gridwidth = 1;
         this.add(btnSave, gbc);
+        this.setIconImage(Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("register_Icon.ico")));
     }
 
     private void initComponents(ActionListener aListener) {
